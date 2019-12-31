@@ -160,6 +160,7 @@ DFA_3mod = {
 }
 ```
 * Plot
+
 ![DFA_3mod](image/DFA_3mod.png)
 * Execution
 ```
@@ -190,6 +191,7 @@ TM_bb2 = {
 TT_bb2 = (0, )
 ```
 * Plot
+
 ![TM_bb2](image/TM_bb2.png)
 * Execution
 ```
@@ -206,8 +208,35 @@ True	6	 1 1(1)1
 ## [flashplayer-update](https://github.com/lxylxy123456/flashplayer-update)
 Automatically Install the Flash plugin for Mozilla Firefox on Linux
 
+```
+$ ls /usr/lib64/mozilla/plugins/libflashplayer.so
+ls: cannot access '/usr/lib64/mozilla/plugins/libflashplayer.so': No such file or directory
+$ sudo python3 flashplayer.py
+Installed
+Updated version record
+$ ls /usr/lib64/mozilla/plugins/libflashplayer.so
+/usr/lib64/mozilla/plugins/libflashplayer.so
+$ sudo python3 flashplayer.py
+Installed version is latest
+$ 
+```
+
 # Websites and APPs
 ## [shierquan](https://github.com/lxylxy123456/shierquan)
+An easy event publication & management platform
+
+[中文](https://zh.shierquan.tk/) / 
+[English](https://en.shierquan.tk/) / 
+[日本語](https://ja.shierquan.tk/)
+
+![zh-home](image/shieruqan01.png)
+
+![zh-hcc](image/shieruqan02.png)
+
+![en-home](image/shieruqan03.png)
+
+![ja-home](image/shieruqan04.png)
+
 ## [FGFS-Controller](https://github.com/lxylxy123456/FGFS-Controller)
 ## [LocationTracker](https://github.com/lxylxy123456/LocationTracker)
 ## [hackdavis2019](https://github.com/lxylxy123456/hackdavis2019)
