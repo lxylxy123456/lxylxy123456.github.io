@@ -227,7 +227,7 @@ An easy event publication & management platform
 
 [中文](https://zh.shierquan.tk/) / 
 [English](https://en.shierquan.tk/) / 
-[日本語](https://ja.shierquan.tk/)
+[日本語](https://ja.shierquan.tk/) (static text only)
 
 [Django](https://www.djangoproject.com/) + 
 [BootStrap](https://getbootstrap.com/) + 
@@ -236,11 +236,19 @@ An easy event publication & management platform
 
 Major contributers: lxylxy123456, David Ma
 
+Chinese home page:
+
 ![zh-home](image/shierquan01.png)
+
+Chinese club info page:
 
 ![zh-hcc](image/shierquan02.png)
 
+English home page:
+
 ![en-home](image/shierquan03.png)
+
+Japanese home page:
 
 ![ja-home](image/shierquan04.png)
 
@@ -258,7 +266,29 @@ My homepage (this website)
 
 # Tutorials and non-programs
 ## [HCCTalks](https://github.com/lxylxy123456/HCCTalks)
+This section is in construction ... be patient
+
 ## [bresenham-logisim](https://github.com/lxylxy123456/bresenham-logisim)
+GIF demo [here](https://github.com/lxylxy123456/bresenham-logisim#demo).
+
+![bresenham-logisim.png](bresenham-logisim.png)
+
 ## [ECS175](https://github.com/lxylxy123456/ECS175)
+Computer Graphics class homework demo
+
+Complete list of demos [here](https://github.com/lxylxy123456/ECS175#demos)
+
+Phong lighting & Ray tracing demo:
+
+![ECS175P5.png](image/ECS175P5.png)
+
+(The green sphere is expected to be only visible in the lower-right screen)
+
+Bezier & B-spline curve demo:
+
+![ECS175P4.png](image/ECS175P4.png)
+
 ## [cs122b](https://github.com/lxylxy123456/cs122b)
+
+![cs122b.png](image/cs122b.png)
 
