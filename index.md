@@ -236,13 +236,13 @@ An easy event publication & management platform
 
 Major contributers: lxylxy123456, David Ma
 
-![zh-home](image/shieruqan01.png)
+![zh-home](image/shierquan01.png)
 
-![zh-hcc](image/shieruqan02.png)
+![zh-hcc](image/shierquan02.png)
 
-![en-home](image/shieruqan03.png)
+![en-home](image/shierquan03.png)
 
-![ja-home](image/shieruqan04.png)
+![ja-home](image/shierquan04.png)
 
 ## [FGFS-Controller](https://github.com/lxylxy123456/FGFS-Controller)
 This section is in construction ... be patient
