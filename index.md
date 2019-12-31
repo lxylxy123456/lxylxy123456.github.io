@@ -229,6 +229,13 @@ An easy event publication & management platform
 [English](https://en.shierquan.tk/) / 
 [日本語](https://ja.shierquan.tk/)
 
+[Django](https://www.djangoproject.com/) + 
+[BootStrap](https://getbootstrap.com/) + 
+[PostgreSQL](https://www.postgresql.org) + 
+[Apache](https://httpd.apache.org/)
+
+Major contributers: lxylxy123456, David Ma
+
 ![zh-home](image/shieruqan01.png)
 
 ![zh-hcc](image/shieruqan02.png)
@@ -238,9 +245,17 @@ An easy event publication & management platform
 ![ja-home](image/shieruqan04.png)
 
 ## [FGFS-Controller](https://github.com/lxylxy123456/FGFS-Controller)
+This section is in construction ... be patient
+
 ## [LocationTracker](https://github.com/lxylxy123456/LocationTracker)
+This section is in construction ... be patient
+
 ## [hackdavis2019](https://github.com/lxylxy123456/hackdavis2019)
+
+
 ## [lxylxy123456.github.io](https://github.com/lxylxy123456/lxylxy123456.github.io)
+My homepage (this website)
+
 # Tutorials and non-programs
 ## [HCCTalks](https://github.com/lxylxy123456/HCCTalks)
 ## [bresenham-logisim](https://github.com/lxylxy123456/bresenham-logisim)
