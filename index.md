@@ -28,7 +28,7 @@ Tutorials and non-programs
 ## [zhalisp](https://github.com/lxylxy123456/zhalisp)
 A "zha" Clisp implementation
 
-Two versions, written in C++ (3800 LOC) and Python (1200 LOC). 
+Two versions, written in C++ (3000 LOC) and Python (1300 LOC). 
 
 Features (C++): garbage collection, tail call optimization, call stack limitation
 
@@ -70,6 +70,41 @@ Enable tail call optimization (`make TR=1`)
 ```
 
 ## [algorithm](https://github.com/lxylxy123456/algorithm)
+Personal implementation of some algorithms in "[Introduction to Algorithms](https://mitpress.mit.edu/books/introduction-algorithms-third-edition)", third edition
+
+Written in C++, extensively using templates to support any data type, 12000 LOC
+
+Demo: Red-Black Tree
+```
+$ make RedBlackTree
+$ ./RedBlackTree
+>> i
+k = 1
+>> i
+k = 2
+>> i
+k = 3
+>> p
+   2     
+  / \    
+ 1   3   
+>> i
+k = 4
+>> i
+k = 5 
+>> i
+k = 6
+>> p
+            __ 2 __              
+         __/       \__           
+       1               4         
+                     /   \       
+                   3       5     
+                            \    
+                             6   
+>> 
+```
+
 ## [ECS150Demo](https://github.com/lxylxy123456/ECS150Demo)
 ## [ECS160HW4](https://github.com/lxylxy123456/ECS160HW4)
 # Scripts
