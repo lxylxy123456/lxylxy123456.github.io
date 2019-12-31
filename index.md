@@ -227,7 +227,7 @@ An easy event publication & management platform
 
 [中文](https://zh.shierquan.tk/) / 
 [English](https://en.shierquan.tk/) / 
-[日本語](https://ja.shierquan.tk/) (static text only)
+[日本語](https://ja.shierquan.tk/) (static texts only)
 
 [Django](https://www.djangoproject.com/) + 
 [BootStrap](https://getbootstrap.com/) + 
@@ -259,19 +259,27 @@ This section is in construction ... be patient
 This section is in construction ... be patient
 
 ## [hackdavis2019](https://github.com/lxylxy123456/hackdavis2019)
-
+This section is in construction ... be patient
 
 ## [lxylxy123456.github.io](https://github.com/lxylxy123456/lxylxy123456.github.io)
 My homepage (this website)
 
 # Tutorials and non-programs
 ## [HCCTalks](https://github.com/lxylxy123456/HCCTalks)
-This section is in construction ... be patient
+Some programming related tutorials in Chinese
+
+Screenshot:
+
+![HCCTalks.png](image/HCCTalks.png)
+
+(from PythonTalk{[02](https://github.com/lxylxy123456/HCCTalks/blob/make/43/PythonTalk02.pdf),[11](https://github.com/lxylxy123456/HCCTalks/blob/make/43/PythonTalk11.pdf)}, BashTalk[02](https://github.com/lxylxy123456/HCCTalks/blob/make/43/BashTalk02.pdf), RegExpTalk[01](https://github.com/lxylxy123456/HCCTalks/blob/make/43/RegExpTalk01.pdf))
 
 ## [bresenham-logisim](https://github.com/lxylxy123456/bresenham-logisim)
+Implementation of Bresenham's line algorithm using logisim (logic circuit)
+
 GIF demo [here](https://github.com/lxylxy123456/bresenham-logisim#demo).
 
-![bresenham-logisim.png](bresenham-logisim.png)
+![bresenham-logisim.png](image/bresenham-logisim.png)
 
 ## [ECS175](https://github.com/lxylxy123456/ECS175)
 Computer Graphics class homework demo
@@ -289,6 +297,9 @@ Bezier & B-spline curve demo:
 ![ECS175P4.png](image/ECS175P4.png)
 
 ## [cs122b](https://github.com/lxylxy123456/cs122b)
+A randomized algorithm analysis related to [ECS 122B](https://www.cs.ucdavis.edu/blog/ecs-122b-algorithm-design-analysis/), written in LaTeX
+
+Screenshot:
 
 ![cs122b.png](image/cs122b.png)
 
