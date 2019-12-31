@@ -106,6 +106,15 @@ k = 6
 ```
 
 ## [ECS150Demo](https://github.com/lxylxy123456/ECS150Demo)
+Some demo programs related to the operating systems class ([ECS 150](https://www.cs.ucdavis.edu/blog/ecs-150-operating-systems-system-programming/))
+
+* `sync_barrier.py`: synchronization barrier implemented using semaphores
+
+* `page2frame.py`: Translate (virtual) page to (physical) frame using Linux's process information pseudo-filesystem
+
+* `page_table.py`: Draw the page table of a process from `/proc/[pid]/maps`
+![page2frame demo](image/page2frame.png)
+
 ## [ECS160HW4](https://github.com/lxylxy123456/ECS160HW4)
 # Scripts
 ## [flashplayer-update](https://github.com/lxylxy123456/flashplayer-update)
