@@ -259,7 +259,13 @@ This section is under construction ... be patient
 This section is under construction ... be patient
 
 ## [hackdavis2019](https://github.com/lxylxy123456/hackdavis2019)
-This section is under construction ... be patient
+Hack Davis 2019 project
+
+Authors: lxylxy123456, Yiling Chen, jingyizhu, wyr
+
+[http://savemyschedule.tk/](http://savemyschedule.tk/)
+
+![hackdavis2019](image/hackdavis2019)
 
 ## [lxylxy123456.github.io](https://github.com/lxylxy123456/lxylxy123456.github.io)
 My homepage (this website)
