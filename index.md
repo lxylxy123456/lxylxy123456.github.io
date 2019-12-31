@@ -147,7 +147,7 @@ DFA Demo: Test whether the input binary number is divisible by 3
 DFA_3mod = {
 	'Sigma': 	(0, 1), 
 	'Q': 		('A', 'B', 'C'), 
-	'q0': 		'A', 
+	'q0':		'A', 
 	'F': 		('A',), 
 	'delta': 	{
 					('A', 0): 'A', 
@@ -178,7 +178,7 @@ TM_bb2 = {
 	'Gamma': 	(0, 1), 
 	'b': 		0, 
 	'Sigma': 	(1, ), 
-	'q0': 		'A', 
+	'q0':		'A', 
 	'F': 		('H'), 
 	'R': 		(), 
 	'delta': 	{
@@ -253,13 +253,13 @@ Japanese home page:
 ![ja-home](image/shierquan04.png)
 
 ## [FGFS-Controller](https://github.com/lxylxy123456/FGFS-Controller)
-This section is in construction ... be patient
+This section is under construction ... be patient
 
 ## [LocationTracker](https://github.com/lxylxy123456/LocationTracker)
-This section is in construction ... be patient
+This section is under construction ... be patient
 
 ## [hackdavis2019](https://github.com/lxylxy123456/hackdavis2019)
-This section is in construction ... be patient
+This section is under construction ... be patient
 
 ## [lxylxy123456.github.io](https://github.com/lxylxy123456/lxylxy123456.github.io)
 My homepage (this website)
