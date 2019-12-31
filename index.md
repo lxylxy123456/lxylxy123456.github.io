@@ -8,8 +8,8 @@ Programs
 * [ECS160HW4](#ecs160hw4)
 
 Scripts
-* [flashplayer-update](#flashplayer-update)
 * [turing-machine](#turing-machine)
+* [flashplayer-update](#flashplayer-update)
 
 Websites and APPs
 * [shierquan](#shierquan)
@@ -74,6 +74,8 @@ Personal implementation of some algorithms in "[Introduction to Algorithms](http
 
 Written in C++, extensively using templates to support any data type, 12000 LOC
 
+Contains 224 functions (e.g. `LeftRotate`, `RightRotate`, `RBInsert`) from 91 topics (e.g. `RedBlackTree`). 
+
 Demo: Red-Black Tree
 ```
 $ make RedBlackTree
@@ -135,8 +137,75 @@ $
 ```
 
 # Scripts
-## [flashplayer-update](https://github.com/lxylxy123456/flashplayer-update)
 ## [turing-machine](https://github.com/lxylxy123456/turing-machine)
+Python implementation of DFA and Turing Machine
+
+DFA Demo: Test whether the input binary number is divisible by 3
+
+* Specification
+```
+DFA_3mod = {
+	'Sigma': 	(0, 1), 
+	'Q': 		('A', 'B', 'C'), 
+	'q0': 		'A', 
+	'F': 		('A',), 
+	'delta': 	{
+					('A', 0): 'A', 
+					('A', 1): 'B', 
+					('B', 0): 'C', 
+					('B', 1): 'A', 
+					('C', 0): 'B', 
+					('C', 1): 'C', 
+				}, 
+}
+```
+* Plot
+![DFA_3mod](image/DFA_3mod.png)
+* Execution
+```
+A B C B A A B C C B A A
+ 1 0 0 1 0 1 0 1 0 1 0
+True
+```
+
+Turing Machine Demo: [2th busy beaver](https://en.wikipedia.org/wiki/Busy_beaver#Examples)
+
+* Specification
+```
+TM_bb2 = {
+	'Q': 		('A', 'B', 'H'), 
+	'Gamma': 	(0, 1), 
+	'b': 		0, 
+	'Sigma': 	(1, ), 
+	'q0': 		'A', 
+	'F': 		('H'), 
+	'R': 		(), 
+	'delta': 	{
+					('A', 0): ('B', 1, R), 
+					('A', 1): ('B', 1, L), 
+					('B', 0): ('A', 1, L), 
+					('B', 1): ('H', 1, R), 
+				}, 
+}
+TT_bb2 = (0, )
+```
+* Plot
+![TM_bb2](image/TM_bb2.png)
+* Execution
+```
+A	 0 0(0)0 0 
+B	 0 0 1(0)0 
+A	 0 0(1)1 0 
+B	 0(0)1 1 0 
+A	(0)1 1 1 0 
+B	 1(1)1 1 0 
+H	 1 1(1)1 0 
+True	6	 1 1(1)1 
+```
+
+## [flashplayer-update](https://github.com/lxylxy123456/flashplayer-update)
+Automatically Install the Flash plugin for Mozilla Firefox on Linux
+
 # Websites and APPs
 ## [shierquan](https://github.com/lxylxy123456/shierquan)
 ## [FGFS-Controller](https://github.com/lxylxy123456/FGFS-Controller)
