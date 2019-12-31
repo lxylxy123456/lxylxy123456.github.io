@@ -28,8 +28,14 @@ Tutorials and non-programs
 ## [zhalisp](https://github.com/lxylxy123456/zhalisp)
 A "zha" Clisp implementation
 
-Demo: 
-```sh
+Two versions, written in C++ (3800 LOC) and Python (1200 LOC). 
+
+Features (C++): garbage collection, tail call optimization, call stack limitation
+
+Demo:
+
+Default options
+```
 $ cd cpp; make > /dev/null
 $ ./backend
 -> (+ 1 2 (* 3 4))
@@ -39,41 +45,45 @@ $ ./backend
 => FACTORIAL
 -> (factorial 5 1)
 => 120
--> (factorial 9999 1)     
+-> (factorial 9999 1)
 Segmentation fault (core dumped)
-$ make clean all LS=1 > /dev/null
-$ ./backend
+```
+Enable stack limitation (`make LS=1`)
+```
 -> (defun factorial (x cur)
     (if (zerop x) cur (factorial (1- x) (* cur x))))
 => FACTORIAL
--> (factorial 9999 1)     
+-> (factorial 9999 1)
 Error: Stack overflow
 -> (exit)
-$ make clean all ALL=1 > /dev/null
-$ ./backend
+```
+Enable tail call optimization (`make TR=1`)
+```
 -> (defun factorial (x cur)
     (if (zerop x) cur (factorial (1- x) (* cur x))))
 => FACTORIAL
--> (factorial 9999 1)   
-=> 2846259680...0000000000
+-> (/ (factorial 9999 1) (factorial 9997 1))
+=> 99970002
+-> (* 9998 9999)
+=> 99970002
 -> 
 ```
 
-## algorithm
-## ECS150Demo
-## ECS160HW4
+## [algorithm](https://github.com/lxylxy123456/algorithm)
+## [ECS150Demo](https://github.com/lxylxy123456/ECS150Demo)
+## [ECS160HW4](https://github.com/lxylxy123456/ECS160HW4)
 # Scripts
-## flashplayer-update
-## turing-machine
+## [flashplayer-update](https://github.com/lxylxy123456/flashplayer-update)
+## [turing-machine](https://github.com/lxylxy123456/turing-machine)
 # Websites and APPs
-## shierquan
-## FGFS-Controller
-## LocationTracker
-## hackdavis2019
-## lxylxy123456.github.io
+## [shierquan](https://github.com/lxylxy123456/shierquan)
+## [FGFS-Controller](https://github.com/lxylxy123456/FGFS-Controller)
+## [LocationTracker](https://github.com/lxylxy123456/LocationTracker)
+## [hackdavis2019](https://github.com/lxylxy123456/hackdavis2019)
+## [lxylxy123456.github.io](https://github.com/lxylxy123456/lxylxy123456.github.io)
 # Tutorials and non-programs
-## HCCTalks
-## bresenham-logisim
-## ECS175
-## cs122b
+## [HCCTalks](https://github.com/lxylxy123456/HCCTalks)
+## [bresenham-logisim](https://github.com/lxylxy123456/bresenham-logisim)
+## [ECS175](https://github.com/lxylxy123456/ECS175)
+## [cs122b](https://github.com/lxylxy123456/cs122b)
 
