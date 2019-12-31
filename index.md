@@ -4,8 +4,8 @@
 Programs
 * [zhalisp](#zhalisp)
 * [algorithm](#algorithm)
-* [ECS150Demo](#ECS150Demo)
-* [ECS160HW4](#ECS160HW4)
+* [ECS150Demo](#ecs150demo)
+* [ECS160HW4](#ecs160hw4)
 
 Scripts
 * [flashplayer-update](#flashplayer-update)
@@ -13,15 +13,15 @@ Scripts
 
 Websites and APPs
 * [shierquan](#shierquan)
-* [FGFS-Controller](#FGFS-Controller)
-* [LocationTracker](#LocationTracker)
+* [FGFS-Controller](#fgfs-controller)
+* [LocationTracker](#locationtracker)
 * [hackdavis2019](#hackdavis2019)
 * [lxylxy123456.github.io](#lxylxy123456.github.io)
 
 Tutorials and non-programs
-* [HCCTalks](#HCCTalks)
+* [HCCTalks](#hcctalks)
 * [bresenham-logisim](#bresenham-logisim)
-* [ECS175](#ECS175)
+* [ECS175](#ecs175)
 * [cs122b](#cs122b)
 
 # Programs
