@@ -1,4 +1,4 @@
-# My GitHub Projects
+# Lxylxy123456's GitHub Projects
 
 ## Table of Contents
 Programs
@@ -116,6 +116,24 @@ Some demo programs related to the operating systems class ([ECS 150](https://www
 ![page2frame demo](image/page2frame.png)
 
 ## [ECS160HW4](https://github.com/lxylxy123456/ECS160HW4)
+A (possibly) flawless C program that calculates the top 10 tweeters (by volume of tweets) in a given CSV file of tweets. Submitted for Homework 4 of [ECS 160](https://www.cs.ucdavis.edu/blog/ecs-160-software-engineering/) Fall 2019. 
+
+Contributers: Eric Li, Kevin Rong
+
+```sh
+$ cat > a.csv
+id,name,content
+1,lxylxy123456,I love programming
+2,lxylxy123456,I like open source
+3,rkevin-arch,I am a contributer of this repo
+4,anonymous,blah blah blah
+$ ./maxTweeter a.csv
+lxylxy123456: 2
+rkevin-arch: 1
+anonymous: 1
+$ 
+```
+
 # Scripts
 ## [flashplayer-update](https://github.com/lxylxy123456/flashplayer-update)
 ## [turing-machine](https://github.com/lxylxy123456/turing-machine)
