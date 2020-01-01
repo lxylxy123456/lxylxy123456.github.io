@@ -273,7 +273,9 @@ My homepage (this website)
 
 # Tutorials and non-programs
 ## [HCCTalks](https://github.com/lxylxy123456/HCCTalks)
-Some programming related tutorials in Chinese
+Some programming related tutorials in Chinese, written in XeLaTeX
+
+Aspect ratio: [4:3](https://github.com/lxylxy123456/HCCTalks/tree/make/43) / [16:9](https://github.com/lxylxy123456/HCCTalks/tree/make/169)
 
 Screenshot:
 
