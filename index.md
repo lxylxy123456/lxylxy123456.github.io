@@ -140,7 +140,7 @@ $
 ## [turing-machine](https://github.com/lxylxy123456/turing-machine)
 Python implementation of DFA and Turing Machine
 
-DFA Demo: Test whether the input binary number is divisible by 3
+DFA Demo: test whether the input binary string represents a number divisible by 3
 
 * Specification
 ```
@@ -225,6 +225,7 @@ $
 ## [shierquan](https://github.com/lxylxy123456/shierquan)
 An easy event publication & management platform
 
+Visit:
 [中文](https://zh.shierquan.tk/) / 
 [English](https://en.shierquan.tk/) / 
 [日本語](https://ja.shierquan.tk/) (static texts only)
@@ -288,7 +289,7 @@ GIF demo [here](https://github.com/lxylxy123456/bresenham-logisim#demo).
 ![bresenham-logisim.png](image/bresenham-logisim.png)
 
 ## [ECS175](https://github.com/lxylxy123456/ECS175)
-Computer Graphics class homework demo
+[Computer Graphics class](https://www.cs.ucdavis.edu/blog/ecs-175-computer-graphics/) homework demo
 
 Complete list of demos [here](https://github.com/lxylxy123456/ECS175#demos)
 
