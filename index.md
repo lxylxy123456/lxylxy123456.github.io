@@ -169,7 +169,7 @@ A B C B A A B C C B A A
 True
 ```
 
-Turing Machine Demo: [2th busy beaver](https://en.wikipedia.org/wiki/Busy_beaver#Examples)
+Turing Machine Demo: [2nd busy beaver](https://en.wikipedia.org/wiki/Busy_beaver#Examples)
 
 * Specification
 ```
