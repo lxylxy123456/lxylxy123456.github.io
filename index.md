@@ -113,8 +113,6 @@ Some demo programs related to the operating systems class ([ECS 150](https://www
 * `sync_barrier.py`: synchronization barrier implemented using semaphores
 
 * `page2frame.py`: Translate (virtual) page to (physical) frame using Linux's process information pseudo-filesystem
-
-Demo:
 ```
 $ sudo python3 page2frame.py | hexdump | head -n 4
 gcc -o page2frame page2frame.c
