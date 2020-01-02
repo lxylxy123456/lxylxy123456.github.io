@@ -114,6 +114,21 @@ Some demo programs related to the operating systems class ([ECS 150](https://www
 
 * `page2frame.py`: Translate (virtual) page to (physical) frame using Linux's process information pseudo-filesystem
 
+Demo:
+```
+$ sudo python3 page2frame.py | hexdump | head -n 4
+gcc -o page2frame page2frame.c
+Virtual memory mapping found:
+ ['7f1b78163000-7f1b78164000', '-w-p', '00000000', '00:00', '0']
+PFN: 0x16bd21
+Flags: 0000000000000000000000000000000000000000000000000101100001001000
+0000000 0000 0001 0002 0003 0004 0005 0006 0007
+0000010 0008 0009 000a 000b 000c 000d 000e 000f
+0000020 0010 0011 0012 0013 0014 0015 0016 0017
+0000030 0018 0019 001a 001b 001c 001d 001e 001f
+$ 
+```
+
 * `page_table.py`: Draw the page table of a process from `/proc/[pid]/maps`
 ![page2frame demo](image/page2frame.png)
 
