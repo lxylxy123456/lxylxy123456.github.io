@@ -296,7 +296,7 @@ Authors: lxylxy123456, Yiling Chen, jingyizhu, wyr
 ![hackdavis2019](image/hackdavis2019)
 
 ## [lxylxy123456.github.io](https://github.com/lxylxy123456/lxylxy123456.github.io)
-My homepage (this website)
+My [homepage](https://lxylxy123456.github.io) (this website)
 
 # Tutorials and non-programs
 ## [HCCTalks](https://github.com/lxylxy123456/HCCTalks)
