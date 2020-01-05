@@ -267,10 +267,21 @@ Japanese home page:
 ![ja-home](image/shierquan04.png)
 
 ## [FGFS-Controller](https://github.com/lxylxy123456/FGFS-Controller)
+Using an iOS Device to Control FGFS with aileron, elevator, rudder, and throttle
+
 This section is under construction ... be patient
 
 ## [LocationTracker](https://github.com/lxylxy123456/LocationTracker)
-This section is under construction ... be patient
+Track the location of an iPhone
+
+In cable car:
+![LocationTracker1.jpg](image/LocationTracker1.jpg)
+
+In high-speed rail:
+![LocationTracker2.jpg](image/LocationTracker2.jpg)
+
+In plane:
+![LocationTracker3.jpg](image/LocationTracker3.jpg)
 
 ## [hackdavis2019](https://github.com/lxylxy123456/hackdavis2019)
 Hack Davis 2019 project
