@@ -293,7 +293,7 @@ Authors: lxylxy123456, Yiling Chen, jingyizhu, wyr
 
 [http://savemyschedule.tk/](http://savemyschedule.tk/)
 
-![hackdavis2019](image/hackdavis2019)
+![hackdavis2019](image/hackdavis2019.png)
 
 ## [lxylxy123456.github.io](https://github.com/lxylxy123456/lxylxy123456.github.io)
 My [homepage](https://lxylxy123456.github.io) (this website)
