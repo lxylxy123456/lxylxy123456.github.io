@@ -302,7 +302,7 @@ My homepage (this website)
 ## [HCCTalks](https://github.com/lxylxy123456/HCCTalks)
 Some programming related tutorials in Chinese, written in XeLaTeX
 
-Aspect ratio: [4:3](https://github.com/lxylxy123456/HCCTalks/tree/make/43) / [16:9](https://github.com/lxylxy123456/HCCTalks/tree/make/169)
+Download by choosing aspect ratio: [4:3](https://github.com/lxylxy123456/HCCTalks/tree/make/43) / [16:9](https://github.com/lxylxy123456/HCCTalks/tree/make/169)
 
 Screenshot (from PythonTalk{[02](https://github.com/lxylxy123456/HCCTalks/blob/make/43/PythonTalk02.pdf),[11](https://github.com/lxylxy123456/HCCTalks/blob/make/43/PythonTalk11.pdf)}, BashTalk[02](https://github.com/lxylxy123456/HCCTalks/blob/make/43/BashTalk02.pdf), RegExpTalk[01](https://github.com/lxylxy123456/HCCTalks/blob/make/43/RegExpTalk01.pdf)):
 
