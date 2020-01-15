@@ -26,7 +26,7 @@ Tutorials and non-programs
 
 # Programs
 ## [zhalisp](https://github.com/lxylxy123456/zhalisp)
-A "zha" Clisp implementation
+A "zha" CLISP interpreter implementation
 
 Two versions, written in C++ (3000 LOC) and Python (1300 LOC). 
 
@@ -267,12 +267,18 @@ Japanese home page:
 ![ja-home](image/shierquan04.png)
 
 ## [FGFS-Controller](https://github.com/lxylxy123456/FGFS-Controller)
-Using an iOS Device to Control FGFS with aileron, elevator, rudder, and throttle
+An iOS app that controls a flight simulator
+ ([FGFS](https://www.flightgear.org/)) on a computer.
 
-This section is under construction ... be patient
+Aileron, elevator, rudder, and throttle can be controlled.
+
+Data are collected through accelerometer in the iOS device, and transmitted
+ using UDP packets.
+
+This section is still under construction ... be patient
 
 ## [LocationTracker](https://github.com/lxylxy123456/LocationTracker)
-Track the location of an iPhone
+An iOS APP that track the location of an iPhone
 
 In cable car:
 
