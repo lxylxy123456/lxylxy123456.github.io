@@ -297,7 +297,7 @@ Aileron, elevator, rudder, and throttle can be controlled.
 Data are collected through accelerometer in the iOS device, and transmitted
  using UDP packets.
 
-This section is still under construction ... be patient
+![FGFS-Controller.png](image/FGFS-Controller.png)
 
 ## [LocationTracker](https://github.com/lxylxy123456/LocationTracker)
 An iOS APP that track the location of an iPhone
