@@ -266,6 +266,28 @@ Japanese home page:
 
 ![ja-home](image/shierquan04.png)
 
+## container
+A file storage service
+
+Visit: [https://c.ercli.dev/](https://c.ercli.dev/)
+ (any username / password combination will work)
+
+![Home](image/container01.png)
+
+![File page](image/container02.png)
+
+## chat-io
+An instant messaging platform
+
+Visit: [https://ercli.dev/](https://ercli.dev/)
+
+(enter your name in "输入你的姓名", click "进入对话", then on the next page
+ leave Session ID and Session Token blank, and click "进入对话" directly)
+
+![Session login](image/chat-io01.png)
+
+![Messaging](image/chat-io02.png)
+
 ## [FGFS-Controller](https://github.com/lxylxy123456/FGFS-Controller)
 An iOS app that controls a flight simulator
  ([FGFS](https://www.flightgear.org/)) on a computer.
@@ -297,7 +319,7 @@ Hack Davis 2019 project
 
 Authors: lxylxy123456, Yiling Chen, jingyizhu, wyr
 
-[http://savemyschedule.tk/](http://savemyschedule.tk/)
+[http://savemyschedule.ercli.dev/](http://savemyschedule.ercli.dev/)
 
 ![hackdavis2019](image/hackdavis2019.png)
 
