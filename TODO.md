@@ -1,0 +1,6 @@
+# TODO
+* ECS 189L (group project, in progress)
+* EEC 172
+* ECS 188
+* ngshare (group project)
+* ECS 132 (group project)
