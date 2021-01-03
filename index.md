@@ -17,7 +17,9 @@ Websites and APPs
 * [container](#container)
 * [chat-io](#chat-io)
 * [FGFS-Controller](#fgfs-controller)
+	* [FGFSControllerWeb](#fgfscontrollerweb)
 * [LocationTracker](#locationtracker)
+	* [Web Version](#web-version)
 * [hackdavis2019](#hackdavis2019)
 * [lxylxy123456.github.io](#lxylxy123456githubio)
 
@@ -313,6 +315,19 @@ Data are collected through accelerometer in the iOS device, and transmitted
  using UDP packets.
 
 ![FGFS-Controller.png](image/FGFS-Controller.png)
+
+### [FGFSControllerWeb](https://github.com/lxylxy123456/FGFSControllerWeb)
+A web app with similar functionality
+
+![FGFSControllerWeb1.png](image/FGFSControllerWeb1.png)
+
+A new throttle control UI:
+
+![FGFSControllerWeb2.png](image/FGFSControllerWeb2.png)
+
+Receiver (made with pygame):
+
+![FGFSControllerWeb3.png](image/FGFSControllerWeb3.png)
 
 ## [LocationTracker](https://github.com/lxylxy123456/LocationTracker)
 An iOS APP that track the location of an iPhone
