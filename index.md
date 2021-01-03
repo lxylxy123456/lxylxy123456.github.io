@@ -373,6 +373,8 @@ Screenshot:
 ## [ECS132](https://github.com/lxylxy123456/ECS132)
 [ECS 132: Probability & Statistical Modeling for Computer Science class](https://cs.ucdavis.edu/schedules-classes/ecs-132-probability-statistical-modeling-computer-science) term project paper
 
+Group members: Eric Li, Benjamin Bing, Zhiyuan Guo
+
 Screenshot:
 
 ![ECS132.png](image/ECS132.png)
