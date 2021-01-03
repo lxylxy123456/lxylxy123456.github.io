@@ -13,6 +13,7 @@ Scripts
 * [flashplayer-update](#flashplayer-update)
 
 Websites and APPs
+* [ngshare](#ngshare)
 * [shierquan](#shierquan)
 * [container](#container)
 * [chat-io](#chat-io)
@@ -253,6 +254,29 @@ $
 ```
 
 # Websites and APPs
+## [ngshare](https://github.com/lxylxy123456/ngshare)
+A backend server for [nbgrader](https://github.com/jupyter/nbgrader)'s exchange service.
+
+Team KALE: Kevin Rong | Abigail Almanza | Lawrence Lee | Eric Li
+
+[Senior Design Project](https://cs.ucdavis.edu/schedules-classes/ecs-193a-senior-design-project) at UC Davis
+
+[Documentation](https://ngshare.readthedocs.io/en/latest/)
+
+[Project Final Report](https://ngshare.readthedocs.io/en/ecs193-final-report/)
+
+Project Introduction Video:
+
+[![Project Introduction Video](http://img.youtube.com/vi/FdK0AGwxkSw/0.jpg)](http://www.youtube.com/watch?v=FdK0AGwxkSw)
+
+Youtube Video Demo:
+
+[![Youtube Video Demo](http://img.youtube.com/vi/SEJCaqD7xXQ/0.jpg)](http://www.youtube.com/watch?v=SEJCaqD7xXQ)
+
+Screenshot of a few pages of ngshare (most of this project is backend, though):
+
+![ngshare](image/ngshare.png)
+
 ## [shierquan](https://github.com/lxylxy123456/shierquan)
 An easy event publication & management platform
 
