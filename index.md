@@ -5,6 +5,7 @@ Programs
 * [zhalisp](#zhalisp)
 * [algorithms](#algorithms)
 * [ECS150Demo](#ecs150demo)
+* [eec172](#eec172)
 * [ECS160HW4](#ecs160hw4)
 
 Scripts
@@ -139,6 +140,21 @@ $
 
 * `page_table.py`: Draw the page table of a process from `/proc/[pid]/maps`
 ![page2frame demo](image/page2frame.png)
+
+## [eec172](https://github.com/lxylxy123456/eec172)
+Brick Breaker game implemented in Python, C (XLib, Linux), and C (CC3200, Texas Instruments)
+
+Screenshot of C version (XLib, Linux):
+
+[eec172_1.png](image/eec172_1.png)
+
+Demo video on CC3200:
+
+[![Demo video on CC3200](http://img.youtube.com/vi/uDkXkYqYVf0/0.jpg)](http://www.youtube.com/watch?v=uDkXkYqYVf0)
+
+Screenshot of final report:
+
+[eec172_2.png](image/eec172_2.png)
 
 ## [ECS160HW4](https://github.com/lxylxy123456/ECS160HW4)
 A (possibly) flawless C program that calculates the top 10 tweeters (by volume of tweets) in a given CSV file of tweets. Submitted for Homework 4 of [ECS 160](https://www.cs.ucdavis.edu/blog/ecs-160-software-engineering/) Fall 2019. 
