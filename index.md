@@ -146,7 +146,7 @@ Brick Breaker game implemented in Python, C (XLib, Linux), and C (CC3200, Texas 
 
 Screenshot of C version (XLib, Linux):
 
-[eec172_1.png](image/eec172_1.png)
+![eec172_1.png](image/eec172_1.png)
 
 Demo video on CC3200:
 
@@ -154,7 +154,7 @@ Demo video on CC3200:
 
 Screenshot of final report:
 
-[eec172_2.png](image/eec172_2.png)
+![eec172_2.png](image/eec172_2.png)
 
 ## [ECS160HW4](https://github.com/lxylxy123456/ECS160HW4)
 A (possibly) flawless C program that calculates the top 10 tweeters (by volume of tweets) in a given CSV file of tweets. Submitted for Homework 4 of [ECS 160](https://www.cs.ucdavis.edu/blog/ecs-160-software-engineering/) Fall 2019. 
