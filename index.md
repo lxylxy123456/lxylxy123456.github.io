@@ -25,6 +25,7 @@ Tutorials and non-programs
 * [bresenham-logisim](#bresenham-logisim)
 * [ECS175](#ecs175)
 * [cs122b](#cs122b)
+* [ECS132](#ecs132)
 
 # Programs
 ## [zhalisp](https://github.com/lxylxy123456/zhalisp)
@@ -368,4 +369,11 @@ A randomized algorithm analysis related to [ECS 122B](https://www.cs.ucdavis.edu
 Screenshot:
 
 ![cs122b.png](image/cs122b.png)
+
+## [ECS132](https://github.com/lxylxy123456/ECS132)
+[ECS 132: Probability & Statistical Modeling for Computer Science class](https://cs.ucdavis.edu/schedules-classes/ecs-132-probability-statistical-modeling-computer-science) term project paper
+
+Screenshot:
+
+![ECS132.png](image/ECS132.png)
 
