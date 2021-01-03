@@ -375,7 +375,7 @@ Screenshot (from PythonTalk{[02](https://github.com/lxylxy123456/HCCTalks/blob/m
 ## [cs188](https://github.com/lxylxy123456/cs188)
 [ECS 188: Ethics in an Age of Technology](https://cs.ucdavis.edu/schedules-classes/ecs-188-ethics-age-technology) paper and presentation
 
-Presentation Video on Youtube:
+Presentation Video on [YouTube](http://www.youtube.com/watch?v=vFygLeyNd1o):
 
 [![Youtube Presentation Video](http://img.youtube.com/vi/vFygLeyNd1o/0.jpg)](http://www.youtube.com/watch?v=vFygLeyNd1o)
 
