@@ -329,6 +329,11 @@ In plane:
 
 ![LocationTracker3.jpg](image/LocationTracker3.jpg)
 
+### Web Version
+A web app with similar functionality is available at: https://ercli.dev/ll.html
+
+![LocationTrackerWeb.png](image/LocationTrackerWeb.png)
+
 ## [hackdavis2019](https://github.com/lxylxy123456/hackdavis2019)
 Hack Davis 2019 project
 
