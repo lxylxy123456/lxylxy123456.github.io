@@ -25,6 +25,7 @@ Websites and APPs
 
 Tutorials and non-programs
 * [HCCTalks](#hcctalks)
+* [cs188](#cs188)
 * [bresenham-logisim](#bresenham-logisim)
 * [ECS175](#ecs175)
 * [cs122b](#cs122b)
@@ -370,6 +371,17 @@ Download by choosing aspect ratio: [4:3](https://github.com/lxylxy123456/HCCTalk
 Screenshot (from PythonTalk{[02](https://github.com/lxylxy123456/HCCTalks/blob/make/43/PythonTalk02.pdf),[11](https://github.com/lxylxy123456/HCCTalks/blob/make/43/PythonTalk11.pdf)}, BashTalk[02](https://github.com/lxylxy123456/HCCTalks/blob/make/43/BashTalk02.pdf), RegExpTalk[01](https://github.com/lxylxy123456/HCCTalks/blob/make/43/RegExpTalk01.pdf)):
 
 ![HCCTalks.png](image/HCCTalks.png)
+
+## [cs188](https://github.com/lxylxy123456/cs188)
+[ECS 188: Ethics in an Age of Technology](https://cs.ucdavis.edu/schedules-classes/ecs-188-ethics-age-technology) paper and presentation
+
+Presentation Video on Youtube:
+
+[![Youtube Presentation Video](http://img.youtube.com/vi/vFygLeyNd1o/0.jpg)](http://www.youtube.com/watch?v=vFygLeyNd1o)
+
+Screenshot of presentation slides (left) and paper (right):
+
+![cs188.png](image/cs188.png)
 
 ## [bresenham-logisim](https://github.com/lxylxy123456/bresenham-logisim)
 Implementation of Bresenham's line algorithm using logisim (logic circuit)
