@@ -17,9 +17,9 @@ Websites and APPs
 * [container](#container)
 * [chat-io](#chat-io)
 * [FGFS-Controller](#fgfs-controller)
-	* [FGFSControllerWeb](#fgfscontrollerweb)
+* [FGFSControllerWeb](#fgfscontrollerweb)
 * [LocationTracker](#locationtracker)
-	* [Web Version](#web-version)
+* LocationTracker ([Web Version](#web-version))
 * [hackdavis2019](#hackdavis2019)
 * [lxylxy123456.github.io](#lxylxy123456githubio)
 
@@ -316,7 +316,7 @@ Data are collected through accelerometer in the iOS device, and transmitted
 
 ![FGFS-Controller.png](image/FGFS-Controller.png)
 
-### [FGFSControllerWeb](https://github.com/lxylxy123456/FGFSControllerWeb)
+## [FGFSControllerWeb](https://github.com/lxylxy123456/FGFSControllerWeb)
 A web app with similar functionality
 
 ![FGFSControllerWeb1.png](image/FGFSControllerWeb1.png)
