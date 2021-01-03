@@ -345,7 +345,7 @@ In plane:
 ![LocationTracker3.jpg](image/LocationTracker3.jpg)
 
 ### Web Version
-A web app with similar functionality is available at: https://ercli.dev/ll.html
+A web app with similar functionality is available at: [https://ercli.dev/ll.html](https://ercli.dev/ll.html)
 
 ![LocationTrackerWeb.png](image/LocationTrackerWeb.png)
 
