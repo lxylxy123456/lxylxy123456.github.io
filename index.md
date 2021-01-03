@@ -8,6 +8,7 @@ Programs
 * [ECS160HW4](#ecs160hw4)
 
 Scripts
+* [cariboublocker](#cariboublocker)
 * [turing-machine](#turing-machine)
 * [flashplayer-update](#flashplayer-update)
 
@@ -155,6 +156,15 @@ $
 ```
 
 # Scripts
+## [cariboublocker](https://github.com/lxylxy123456/cariboublocker)
+Enhanced [keringar/cariboublocker](https://github.com/keringar/cariboublocker) to support Gnome Shell 3.36
+
+Download: https://extensions.gnome.org/extension/3222/block-caribou-36/
+
+Download page screenshot:
+
+![cariboublocker.png](image/cariboublocker.png)
+
 ## [turing-machine](https://github.com/lxylxy123456/turing-machine)
 Python implementation of DFA and Turing Machine
 
