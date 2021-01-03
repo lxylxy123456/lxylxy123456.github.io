@@ -273,7 +273,7 @@ $
 ## [ngshare](https://github.com/lxylxy123456/ngshare)
 A backend server for [nbgrader](https://github.com/jupyter/nbgrader)'s exchange service.
 
-Team KALE: Kevin Rong | Abigail Almanza | Lawrence Lee | Eric Li
+Team KALE: Kevin Rong, Abigail Almanza, Lawrence Lee, Eric Li
 
 [Senior Design Project](https://cs.ucdavis.edu/schedules-classes/ecs-193a-senior-design-project) at UC Davis
 
