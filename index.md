@@ -179,7 +179,7 @@ $
 ## [cariboublocker](https://github.com/lxylxy123456/cariboublocker)
 Enhanced [keringar/cariboublocker](https://github.com/keringar/cariboublocker) to support Gnome Shell 3.36
 
-Download: https://extensions.gnome.org/extension/3222/block-caribou-36/
+Download: [https://extensions.gnome.org/extension/3222/block-caribou-36/](https://extensions.gnome.org/extension/3222/block-caribou-36/)
 
 Download page screenshot:
 
