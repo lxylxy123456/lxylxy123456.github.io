@@ -388,6 +388,8 @@ In plane:
 ## [LocationTrackerWeb](https://github.com/lxylxy123456/LocationTrackerWeb)
 A web app with similar functionality is available at: [https://ercli.dev/ll.html](https://ercli.dev/ll.html) or [https://lxylxy123456.github.io/ll.html](https://lxylxy123456.github.io/ll.html).
 
+Animated Demo: [gif](https://github.com/lxylxy123456/LocationTrackerWeb/blob/master/demo.gif) / [Youtube](https://www.youtube.com/watch?v=el0oN_0p9EM)
+
 ![LocationTrackerWeb.png](image/LocationTrackerWeb.png)
 
 ## [hackdavis2019](https://github.com/lxylxy123456/hackdavis2019)
