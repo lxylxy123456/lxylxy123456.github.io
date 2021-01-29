@@ -1,0 +1,128 @@
+<!--
+	This program records a device's location with human-readable lines
+	Normally the file should be hosted in https://vps.hcc.io/l.html
+	Copyright (C) 2017  Eric Li 李宵逸
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Affero General Public License as
+	published by the Free Software Foundation, either version 3 of the
+	License, or (at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Affero General Public License for more details.
+
+	You should have received a copy of the GNU Affero General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no">
+<style>
+	button.b1 {
+		width: 16%; 
+		height: 5%; 
+	}
+	button.b2 {
+		width: 32%; 
+		height: 5%; 
+	}
+	textarea {
+		width: 100%; 
+		height: 44%; 
+		white-space: pre; 
+		overflow-wrap: normal; 
+		overflow-x: scroll; 
+	}
+</style>
+
+<button class="b2" onclick="watchLocation();">追踪</button>
+<button class="b1" onclick="getLocation();">定时</button>
+<button class="b1" onclick="answer_scroll();">滚动</button>
+<button class="b2" onclick="swap_info();">交换</button>
+
+<br />
+<textarea id="answer2" autocomplete="off"></textarea>
+<br />
+<textarea id="answer" autocomplete="off"></textarea>
+<br />
+
+<button class="b2" onclick="watchLocation();">追踪</button>
+<button class="b1" onclick="getLocation();">定时</button>
+<button class="b1" onclick="answer_scroll();">滚动</button>
+<button class="b2" onclick="swap_info();">交换</button>
+
+<script type="text/javascript">
+	var watchLocation_confirm = false; 
+	function showPosition(position){
+		var a = position.coords;
+		var params = [
+				['la', a.latitude], ['lo', a.longitude], 
+				['al', a.altitude], ['ac', a.accuracy], 
+				['aa', a.altitudeAccuracy], ['he', a.heading], ['sp', a.speed]
+			]; 
+		var app = 't:' + Date.now().toString(); 	// appending string
+		for (var i = 0; i < params.length; i += 1) {
+			var str = 'null'; 
+			if (isNaN(params[i][1])) {
+				str = 'null'
+			}
+			else if (params[i][1] != null) {
+				str = params[i][1].toString(); 
+			}
+			app += ',' + params[i][0] + ':' + str
+		}
+		app += '\n'; 
+		answer.value += app; 
+	}
+	function exit_refrain() {
+		window.onbeforeunload = function (){
+			return "Are you sure to close the window?"; 
+		}; 
+	}
+	function getLocation(){
+		exit_refrain(); 
+		if (navigator.geolocation && confirm('是否持续请求定位？')){
+			navigator.geolocation.getCurrentPosition(showPosition, showError);
+			setInterval("navigator.geolocation.getCurrentPosition" + 
+						"(showPosition,showError);", 30000);
+		}
+	}
+	function watchLocation(){
+		exit_refrain(); 
+		if (watchLocation_confirm == false) {
+			watchLocation_confirm = true; 
+		}
+		else {
+			confirm('是否再次请求追踪？')
+		}
+		if (navigator.geolocation)
+			navigator.geolocation.watchPosition(showPosition, showError);
+	}
+	function showError(error){
+		return; 	// Function disabled
+		switch(error.code) {
+			case error.PERMISSION_DENIED:
+				alert('PERMISSION_DENIED');		break; 
+			case error.POSITION_UNAVAILABLE:
+				alert('POSITION_UNAVAILABLE');	break; 
+			case error.TIMEOUT:
+				alert('TIMEOUT');				break; 
+			case error.UNKNOWN_ERROR:
+				alert('UNKNOWN_ERROR');			break; 
+		}
+	}
+	function answer_scroll() {
+		if (answer2.scrollTop != 0) {
+			answer2.scrollTop = 0; 
+		}
+		else {
+			answer2.scrollTop = answer2.scrollHeight; 
+		}
+	}
+	function swap_info() {
+		answer2.value += answer.value;
+		answer.value = '';
+	}
+</script>

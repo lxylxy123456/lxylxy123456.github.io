@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<!--
+	This program records a device's location with human-readable lines
+	Normally the file should be hosted in https://vps.hcc.io/l.html
+	Copyright (C) 2020  Eric Li 李宵逸
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Affero General Public License as
+	published by the Free Software Foundation, either version 3 of the
+	License, or (at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Affero General Public License for more details.
+
+	You should have received a copy of the GNU Affero General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;
+                                 maximum-scale=1.0; user-scalable=no">
+  <title>LocationTrackerWeb</title>
+  <style>
+	* {
+		box-sizing: border-box;
+	}
+	html, body {
+		height: 100%;
+	}
+	body {
+		margin: 0px;
+		padding: 8px;
+		overflow: hidden;	/* disable scroll */
+	}
+	body.flex {
+		display: flex;
+		flex-direction: column;
+	}
+	.row {
+		display: flex;
+		flex-direction: row;
+		
+	}
+	.col-2 {
+		flex-grow: 1;
+		float: left;
+		overflow: hidden;
+	}
+	.col-4 {
+		flex-grow: 2;
+		float: left;
+		overflow: hidden;
+	}
+	textarea {
+		width: 100%;
+		flex-grow: 1;
+		white-space: pre;
+		overflow-wrap: normal;
+		overflow-x: scroll;
+	}
+	.big {
+		font-size: 1.5em;
+	}
+	.gray {
+		color: gray;
+	}
+	span.border {
+		border: 1px solid gray;
+		/* white-space: nowrap; */
+	}
+  </style>
+</head>
+<body class="flex">
+
+  <div id="upper_btns" class="row">
+    <button class="col-2" onclick="watchLocation();">追踪</button>
+    <button class="col-2" onclick="getLocation();">定时</button>
+    <div class="col-2">
+      <input type="checkbox" name="accurate" value="high" autocomplete="off"
+             onclick="accurate_clicked(event);">
+      <label for="accurate" onclick="accurate_clicked(event);">非精确</label>
+    </div>
+    <button class="col-2" onclick="answer_scroll();">滚动</button>
+    <button class="col-4" onclick="swap_info();">交换</button>
+  </div>
+
+  <div id="info_table">
+    <div class="row big">
+      <span class="col-4 border" id="lo">经度</span>
+      <span class="col-4 border" id="la">纬度</span>
+      <span class="col-4 border"><span id="al">高度</span> m</span>
+    </div>
+    <div class="row">
+      <span class="col-4 border big"><span id="he">朝向</span> deg</span>
+      <span class="col-2 border gray"><span id="ac">精确度</span> m</span>
+      <span class="col-4 border big"><span id="sp">速度</span> m/s</span>
+      <span class="col-2 border gray"><span id="aa">高度精确度</span> m</span>
+    </div>
+    <div class="row big">
+      <span class="col-4 border"><span id="kts">速度节</span> kts</span>
+      <span class="col-4 border"><span id="mph">速度迈</span> mph</span>
+      <span class="col-4 border"><span id="kmh">速度千米时</span> km/h</span>
+    </div>
+  </div>
+
+  <textarea id="answer2" autocomplete="off"></textarea>
+  <textarea id="answer" autocomplete="off"></textarea>
+
+  <div id="lower_btns" class="row"></div>
+
+  <script type="text/javascript">
+	// Initialize
+	lower_btns.innerHTML = upper_btns.innerHTML;
+	let accurate = true;
+	function accurate_clicked(event) {
+		// alert(event.target);
+		let checkboxs = document.getElementsByName("accurate");
+		for (let i = 0; i < checkboxs.length; i++) {
+			checkboxs[i].checked = accurate;
+		}
+		accurate = !accurate;
+	}
+
+	let watchLocation_confirm = false;
+	function unit_convert(speed, multiplier) {
+		if (speed === null) {
+			return "null";
+		} else {
+			return Math.round(speed * multiplier * 10) / 10;
+		}
+	}
+	function format_degree(raw_data) {
+		// 123.101 -> "123°06'36''.6" (similar to "%02d°%02d'%02d''%.6f")
+		let sgn = raw_data < 0 ? '-' : '';
+		let rem = raw_data < 0 ? -raw_data : raw_data;
+		let deg = Math.trunc(rem);
+		rem = (rem - deg) * 60.0;
+		let min = Math.trunc(rem);
+		rem = (rem - min) * 60.0;
+		let sec = Math.trunc(rem);
+		rem = (rem - sec) * 1000000.0;
+		let point = Math.trunc(rem);
+		return (sgn + deg + '°' + min.toString().padStart(2, '0')
+					+ "'" + sec.toString().padStart(2, '0')
+					+ "''." + point.toString().padStart(6, '0'))
+	}
+	function showPosition(position){
+		let a = position.coords;
+		let params = [
+				// simp_name, data, display_accuracy
+				['la', a.latitude, 0],
+				['lo', a.longitude, 0],
+				['al', a.altitude, 1000],
+				['ac', a.accuracy, 1000],
+				['aa', a.altitudeAccuracy, 1000],
+				['he', a.heading, 1000],
+				['sp', a.speed, 10]
+			];
+		let app = 't:' + Date.now().toString(); 	// appending string
+		for (let i = 0; i < params.length; i += 1) {
+			let str = 'null';
+			let display_str = 'null';
+			if (!isNaN(params[i][1]) && params[i][1] != null) {
+				str = params[i][1].toString();
+				if (params[i][2] != 0) {
+					display_str = (
+						Math.round(params[i][1] * params[i][2]) / params[i][2]);
+				} else {
+					display_str = str;
+				}
+			}
+			app += ',' + params[i][0] + ':' + str;
+			// Display data in info_table
+			document.getElementById(params[i][0]).innerText = display_str;
+		}
+		app += '\n';
+		answer.value += app;
+		// Display special data format in info_table
+		document.getElementById("kts").innerText = (
+			unit_convert(a.speed, 1.94384449));
+		document.getElementById("mph").innerText = (
+			unit_convert(a.speed, 2.23693629));
+		document.getElementById("kmh").innerText = (
+			unit_convert(a.speed, 3.6));
+		document.getElementById("la").innerText = format_degree(a.latitude);
+		document.getElementById("lo").innerText = format_degree(a.longitude);
+	}
+	function exit_refrain() {
+		window.onbeforeunload = function (){
+			return "Are you sure to close the window?";
+		};
+	}
+	function getPositionOptions() {
+		// https://developer.mozilla.org/zh-CN/docs/Web/API/PositionOptions
+		return { enableHighAccuracy: accurate };
+	}
+	function getLocation(){
+		exit_refrain();
+		if (navigator.geolocation && confirm('是否持续请求定位？')){
+			navigator.geolocation.getCurrentPosition(showPosition, showError,
+													getPositionOptions());
+			setInterval("navigator.geolocation.getCurrentPosition" +
+						"(showPosition,showError,getPositionOptions());",
+						30000);
+		}
+	}
+	function watchLocation(){
+		exit_refrain();
+		if (watchLocation_confirm == false) {
+			watchLocation_confirm = true;
+		} else {
+			confirm('是否再次请求追踪？');
+		}
+		if (navigator.geolocation)
+			navigator.geolocation.watchPosition(showPosition, showError,
+												getPositionOptions());
+	}
+	function showError(error){
+		return; 	// Function disabled
+		switch(error.code) {
+			case error.PERMISSION_DENIED:
+				alert('PERMISSION_DENIED');		break;
+			case error.POSITION_UNAVAILABLE:
+				alert('POSITION_UNAVAILABLE');	break;
+			case error.TIMEOUT:
+				alert('TIMEOUT');				break;
+			case error.UNKNOWN_ERROR:
+				alert('UNKNOWN_ERROR');			break;
+		}
+	}
+	function answer_scroll() {
+		if (answer2.scrollTop != 0) {
+			answer2.scrollTop = 0;
+		} else {
+			answer2.scrollTop = answer2.scrollHeight;
+		}
+	}
+	function swap_info() {
+		answer2.value += answer.value;
+		answer.value = '';
+	}
+  </script>
+</body>
+
