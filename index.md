@@ -21,7 +21,7 @@ Websites and APPs
 * [FGFS-Controller](#fgfs-controller)
 * [FGFSControllerWeb](#fgfscontrollerweb)
 * [LocationTracker](#locationtracker)
-* LocationTracker ([Web Version](#web-version))
+* [LocationTrackerWeb](#locationtrackerweb)
 * [hackdavis2019](#hackdavis2019)
 * [lxylxy123456.github.io](#lxylxy123456githubio)
 
@@ -385,8 +385,8 @@ In plane:
 
 ![LocationTracker3.jpg](image/LocationTracker3.jpg)
 
-### Web Version
-A web app with similar functionality is available at: [https://ercli.dev/ll.html](https://ercli.dev/ll.html)
+## [LocationTrackerWeb](https://github.com/lxylxy123456/LocationTrackerWeb)
+A web app with similar functionality is available at: [https://ercli.dev/ll.html](https://ercli.dev/ll.html) or [https://lxylxy123456.github.io/ll.html](https://lxylxy123456.github.io/ll.html).
 
 ![LocationTrackerWeb.png](image/LocationTrackerWeb.png)
 
