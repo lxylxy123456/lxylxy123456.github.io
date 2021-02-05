@@ -361,9 +361,11 @@ Data are collected through accelerometer in the iOS device, and transmitted
 A web app with similar functionality as FGFS-Controller above.
 
 Screenshot:
+
 ![FGFSControllerWeb1.png](image/FGFSControllerWeb1.png)
 
-Video:
+Demo Video:
+
 [![YxqSxod6d7o](http://img.youtube.com/vi/YxqSxod6d7o/0.jpg)](http://www.youtube.com/watch?v=YxqSxod6d7o)
 
 A new throttle control UI:
