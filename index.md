@@ -27,6 +27,7 @@ Websites and APPs
 
 Tutorials and non-programs
 * [HCCTalks](#hcctalks)
+* [cs251](#cs251)
 * [cs188](#cs188)
 * [bresenham-logisim](#bresenham-logisim)
 * [ECS175](#ecs175)
@@ -419,6 +420,14 @@ Download page: [https://github.com/lxylxy123456/HCCTalks/releases/latest](https:
 Screenshot (from PythonTalk{[02](https://github.com/lxylxy123456/HCCTalks/blob/make/43/PythonTalk02.pdf),[11](https://github.com/lxylxy123456/HCCTalks/blob/make/43/PythonTalk11.pdf)}, BashTalk[02](https://github.com/lxylxy123456/HCCTalks/blob/make/43/BashTalk02.pdf), RegExpTalk[01](https://github.com/lxylxy123456/HCCTalks/blob/make/43/RegExpTalk01.pdf)):
 
 ![HCCTalks.png](image/HCCTalks.png)
+
+## [cs251](https://github.com/lxylxy123456/cs251)
+
+[ECS 251: Operating Systems](https://cs.ucdavis.edu/schedules-classes/ecs-251-operating-systems) presentation
+
+Presentation Video on [YouTube](http://www.youtube.com/watch?v=vFygLeyNd1o):
+
+[![Youtube Presentation Video](http://img.youtube.com/vi/xtCWZYDGeAk/0.jpg)](http://www.youtube.com/watch?v=xtCWZYDGeAk)
 
 ## [cs188](https://github.com/lxylxy123456/cs188)
 [ECS 188: Ethics in an Age of Technology](https://cs.ucdavis.edu/schedules-classes/ecs-188-ethics-age-technology) paper and presentation
