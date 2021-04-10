@@ -39,6 +39,11 @@
 		display: flex;
 		flex-direction: column;
 	}
+	div.page {
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+	}
 	.row {
 		display: flex;
 		flex-direction: row;
@@ -78,53 +83,65 @@
   <div id="upper_btns" class="row">
     <button class="col-2" onclick="watchLocation();">追踪</button>
     <button class="col-2" onclick="getLocation();">定时</button>
-    <div class="col-2">
-      <input type="checkbox" name="accurate" value="high" autocomplete="off"
-             onclick="accurate_clicked(event);">
-      <label for="accurate" onclick="accurate_clicked(event);">非精确</label>
-    </div>
+    <button class="col-2" onclick="toggleConfig();">设置</button>
     <button class="col-2" onclick="answer_scroll();">滚动</button>
     <button class="col-4" onclick="swap_info();">交换</button>
   </div>
 
-  <div id="info_table">
-    <div class="row big">
-      <span class="col-4 border" id="lo">经度</span>
-      <span class="col-4 border" id="la">纬度</span>
-      <span class="col-4 border"><span id="al">高度</span> m</span>
+  <div id="main_page" class="page">
+    <div id="info_table">
+      <div class="row big">
+        <span class="col-4 border" id="lo">经度</span>
+        <span class="col-4 border" id="la">纬度</span>
+        <span class="col-4 border"><span id="al">高度</span> m</span>
+      </div>
+      <div class="row">
+        <span class="col-4 border big"><span id="he">朝向</span> deg</span>
+        <span class="col-2 border gray"><span id="ac">精确度</span> m</span>
+        <span class="col-4 border big"><span id="sp">速度</span> m/s</span>
+        <span class="col-2 border gray"><span id="aa">高度精确度</span> m</span>
+      </div>
+      <div class="row big">
+        <span class="col-4 border"><span id="kts">速度节</span> kts</span>
+        <span class="col-4 border"><span id="mph">速度迈</span> mph</span>
+        <span class="col-4 border"><span id="kmh">速度千米时</span> km/h</span>
+      </div>
     </div>
-    <div class="row">
-      <span class="col-4 border big"><span id="he">朝向</span> deg</span>
-      <span class="col-2 border gray"><span id="ac">精确度</span> m</span>
-      <span class="col-4 border big"><span id="sp">速度</span> m/s</span>
-      <span class="col-2 border gray"><span id="aa">高度精确度</span> m</span>
-    </div>
-    <div class="row big">
-      <span class="col-4 border"><span id="kts">速度节</span> kts</span>
-      <span class="col-4 border"><span id="mph">速度迈</span> mph</span>
-      <span class="col-4 border"><span id="kmh">速度千米时</span> km/h</span>
-    </div>
+
+    <textarea id="answer2" autocomplete="off"></textarea>
+    <textarea id="answer" autocomplete="off"></textarea>
   </div>
 
-  <textarea id="answer2" autocomplete="off"></textarea>
-  <textarea id="answer" autocomplete="off"></textarea>
+  <div id="config_page" class="page" style="display: none;">
+    <div id="config_btns" class="row">
+      <div class="col-2">
+        <input type="checkbox" name="accurate" value="high" autocomplete="off"
+               onclick="accurate_clicked(event);">
+        <label for="accurate" onclick="accurate_clicked(event);">非精确</label>
+      </div>
+      <div class="col-2">
+        <input id="local_save_chk" type="checkbox" name="local_save"
+               autocomplete="off" onclick="local_save_clicked()">
+        <label for="local_save" onclick="local_save_clicked()">
+          禁用本地储存
+        </label>
+      </div>
+      <button class="col-2" onclick="show_storage();">显示本地储存</button>
+      <button class="col-2" onclick="clear_storage();">清除本地储存</button>
+      <button class="col-2" onclick="clear_storage_text();">清除文本</button>
+    </div>
+    <textarea id="answer3" autocomplete="off"></textarea>
+  </div>
 
   <div id="lower_btns" class="row"></div>
 
   <script type="text/javascript">
 	// Initialize
 	lower_btns.innerHTML = upper_btns.innerHTML;
-	let accurate = true;
-	function accurate_clicked(event) {
-		// alert(event.target);
-		let checkboxs = document.getElementsByName("accurate");
-		for (let i = 0; i < checkboxs.length; i++) {
-			checkboxs[i].checked = accurate;
-		}
-		accurate = !accurate;
+	// Helper functions
+	function gebi(id) {
+		return document.getElementById(id)
 	}
-
-	let watchLocation_confirm = false;
 	function unit_convert(speed, multiplier) {
 		if (speed === null) {
 			return "null";
@@ -147,7 +164,93 @@
 					+ "'" + sec.toString().padStart(2, '0')
 					+ "''." + point.toString().padStart(6, '0'))
 	}
-	function showPosition(position){
+	// Handle UI change functions
+	let accurate = true;
+	function accurate_clicked(event) {
+		// alert(event.target);
+		let checkboxs = document.getElementsByName("accurate");
+		for (let i = 0; i < checkboxs.length; i++) {
+			checkboxs[i].checked = accurate;
+		}
+		accurate = !accurate;
+	}
+	let local_save = true;
+	function local_save_clicked() {
+		gebi("local_save_chk").checked = local_save;
+		local_save = !local_save;
+	}
+	function toggleConfig() {
+		const config = gebi('config_page').style['display'] == 'none';
+		const cv = config ? '' : 'none';
+		const mv = config ? 'none' : '';
+		gebi('config_page').style.setProperty('display', cv);
+		gebi('main_page').style.setProperty('display', mv);
+	}
+	function answer_scroll() {
+		if (answer2.scrollTop != 0) {
+			answer2.scrollTop = 0;
+		} else {
+			answer2.scrollTop = answer2.scrollHeight;
+		}
+		if (answer3.scrollTop != 0) {
+			answer3.scrollTop = 0;
+		} else {
+			answer3.scrollTop = answer3.scrollHeight;
+		}
+	}
+	function swap_info() {
+		answer2.value += answer.value;
+		answer.value = '';
+	}
+	function clear_storage_text() {
+		answer3.value = '';
+	}
+	// Handle local storage
+	function store_local_data(t, s) {
+		if (!local_save)
+			return;
+		try {
+			window.localStorage.setItem('LocationTracker:' + t, s);
+		} catch (error) {
+			answer3.value += 'Error storing to local storage at ' + t + '\n';
+		}
+	}
+	function show_storage() {
+		let values = [];
+		for (let i = 0; i < window.localStorage.length; i++) {
+			const key = window.localStorage.key(i);
+			if (key.startsWith('LocationTracker:')) {
+				values[values.length] = window.localStorage.getItem(key);
+			}
+		}
+		function cmp(first, second) {
+			const f = parseInt(first.substr(2, first.indexOf(',') - 2));
+			const s = parseInt(second.substr(2, second.indexOf(',') - 2));
+			return f < s;
+		}
+		values.sort(cmp);
+		for (let i = 0; i < values.length; i++) {
+			answer3.value += values[i];
+		}
+	}
+	function clear_storage() {
+		if (confirm('Are you sure to clear local storage?')) {
+			// window.localStorage.clear();
+			let keys = [];
+			for (let i = 0; i < window.localStorage.length; i++) {
+				const key = window.localStorage.key(i);
+				if (key.startsWith('LocationTracker:')) {
+					keys[keys.length] = key;
+				}
+			}
+			for (let i = 0; i < keys.length; i++) {
+				window.localStorage.removeItem(keys[i]);
+			}
+		}
+	}
+	// Fetch and display location data
+	let watchLocation_confirm = false;
+	function showPosition(position) {
 		let a = position.coords;
 		let params = [
 				// simp_name, data, display_accuracy
@@ -159,7 +262,8 @@
 				['he', a.heading, 1000],
 				['sp', a.speed, 10]
 			];
-		let app = 't:' + Date.now().toString(); 	// appending string
+		const t = Date.now().toString();
+		let app = 't:' + t; 	// appending string
 		for (let i = 0; i < params.length; i += 1) {
 			let str = 'null';
 			let display_str = 'null';
@@ -174,22 +278,21 @@
 			}
 			app += ',' + params[i][0] + ':' + str;
 			// Display data in info_table
-			document.getElementById(params[i][0]).innerText = display_str;
+			gebi(params[i][0]).innerText = display_str;
 		}
 		app += '\n';
 		answer.value += app;
+		// Save data to localStorage
+		store_local_data(t, app);
 		// Display special data format in info_table
-		document.getElementById("kts").innerText = (
-			unit_convert(a.speed, 1.94384449));
-		document.getElementById("mph").innerText = (
-			unit_convert(a.speed, 2.23693629));
-		document.getElementById("kmh").innerText = (
-			unit_convert(a.speed, 3.6));
-		document.getElementById("la").innerText = format_degree(a.latitude);
-		document.getElementById("lo").innerText = format_degree(a.longitude);
+		gebi('kts').innerText = unit_convert(a.speed, 1.94384449);
+		gebi('mph').innerText = unit_convert(a.speed, 2.23693629);
+		gebi('kmh').innerText = unit_convert(a.speed, 3.6);
+		gebi('la').innerText = format_degree(a.latitude);
+		gebi('lo').innerText = format_degree(a.longitude);
 	}
 	function exit_refrain() {
-		window.onbeforeunload = function (){
+		window.onbeforeunload = function () {
 			return "Are you sure to close the window?";
 		};
 	}
@@ -197,9 +300,9 @@
 		// https://developer.mozilla.org/zh-CN/docs/Web/API/PositionOptions
 		return { enableHighAccuracy: accurate };
 	}
-	function getLocation(){
+	function getLocation() {
 		exit_refrain();
-		if (navigator.geolocation && confirm('是否持续请求定位？')){
+		if (navigator.geolocation && confirm('是否持续请求定位？')) {
 			navigator.geolocation.getCurrentPosition(showPosition, showError,
 													getPositionOptions());
 			setInterval("navigator.geolocation.getCurrentPosition" +
@@ -207,7 +310,7 @@
 						30000);
 		}
 	}
-	function watchLocation(){
+	function watchLocation() {
 		exit_refrain();
 		if (watchLocation_confirm == false) {
 			watchLocation_confirm = true;
@@ -218,7 +321,7 @@
 			navigator.geolocation.watchPosition(showPosition, showError,
 												getPositionOptions());
 	}
-	function showError(error){
+	function showError(error) {
 		return; 	// Function disabled
 		switch(error.code) {
 			case error.PERMISSION_DENIED:
@@ -230,17 +333,6 @@
 			case error.UNKNOWN_ERROR:
 				alert('UNKNOWN_ERROR');			break;
 		}
-	}
-	function answer_scroll() {
-		if (answer2.scrollTop != 0) {
-			answer2.scrollTop = 0;
-		} else {
-			answer2.scrollTop = answer2.scrollHeight;
-		}
-	}
-	function swap_info() {
-		answer2.value += answer.value;
-		answer.value = '';
 	}
   </script>
 </body>
