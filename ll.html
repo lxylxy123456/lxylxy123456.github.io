@@ -138,11 +138,18 @@
   <script type="text/javascript">
 	// Initialize
 	lower_btns.innerHTML = upper_btns.innerHTML;
+	// Definitions
+	const LABELS = ['la', 'lo', 'al', 'ac', 'aa', 'he', 'sp'];
+	const EXTRACT_DATA = (x) => [
+		x.latitude, x.longitude, x.altitude, x.accuracy, x.altitudeAccuracy,
+		x.heading, x.speed];
+	const DISPLAY_ACCURACY = [0, 0, 1000, 1000, 1000, 1000, 10];
 	// Helper functions
 	function gebi(id) {
 		return document.getElementById(id)
 	}
 	function unit_convert(speed, multiplier) {
+		// Convert speed in m/s to a different unit (e.g. mph, kts)
 		if (speed === null) {
 			return "null";
 		} else {
@@ -163,6 +170,79 @@
 		return (sgn + deg + '°' + min.toString().padStart(2, '0')
 					+ "'" + sec.toString().padStart(2, '0')
 					+ "''." + point.toString().padStart(6, '0'))
+	}
+	function data2str(time, data) {
+		// Convert data to string (for the user to copy)
+		let ans = 't:' + time;
+		for (let i = 0; i < LABELS.length; i += 1) {
+			let str = 'null';
+			let display_str = 'null';
+			const label = LABELS[i];
+			const value = data[i];
+			if (!isNaN(value) && value != null) {
+				str = value.toString();
+			}
+			ans += ',' + label + ':' + str;
+		}
+		ans += '\n';
+		return ans;
+	}
+	function display_data(data) {
+		// Display a data
+		for (let i = 0; i < LABELS.length; i += 1) {
+			let display_str = 'null';
+			const label = LABELS[i];
+			const value = data[i];
+			const round = DISPLAY_ACCURACY[i];
+			if (!isNaN(value) && value != null) {
+				if (round != 0) {
+					display_str = Math.round(value * round) / round;
+				} else {
+					display_str = value.toString();
+				}
+			}
+			gebi(label).innerText = display_str;
+		}
+		gebi('la').innerText = format_degree(data[0]);
+		gebi('lo').innerText = format_degree(data[1]);
+		gebi('kts').innerText = unit_convert(data[6], 1.94384449);
+		gebi('mph').innerText = unit_convert(data[6], 2.23693629);
+		gebi('kmh').innerText = unit_convert(data[6], 3.6);
+	}
+	function data2bytes(data) {
+		// Convert data (a list of doubles) to bytes
+		const f64arr = new Float64Array(data);
+		const i16arr = new Int16Array(f64arr.buffer);
+		let isnan = 0;
+		for (let i = 0; i < data.length; i++) {
+			isnan <<= 1;
+			if (isNaN(data[i]) || data[i] == null) {
+				isnan |= 1;
+			}
+		}
+		bytes = String.fromCharCode(isnan);
+		for (let i = 0; i < i16arr.length; i++) {
+			bytes += String.fromCharCode(i16arr[i]);
+		}
+		return bytes;
+	}
+	function bytes2data(bytes) {
+		// Convert bytes to data (a list of doubles)
+		let isnan = bytes.charCodeAt(0);
+		let i16 = [];
+		for (let i = 1; i < bytes.length; i++) {
+			i16[i16.length] = bytes.charCodeAt(i);
+		}
+		const i16arr = new Int16Array(i16);
+		const f64arr = new Float64Array(i16arr.buffer);
+		let data = Array.from(f64arr);
+		for (let i = data.length - 1; i >= 0; i--) {
+			if (isnan & 1) {
+				data[i] = NaN;
+			}
+			isnan >>= 1;
+		}
+		return data;
 	}
 	// Handle UI change functions
 	let accurate = true;
@@ -206,31 +286,39 @@
 		answer3.value = '';
 	}
 	// Handle local storage
-	function store_local_data(t, s) {
+	const LOCAL_KEY_PREFIX = 'LocationTracker:';
+	const LOCAL_KEY_LEN = LOCAL_KEY_PREFIX.length;
+	function store_local_data(t, s, i) {
 		if (!local_save)
 			return;
 		try {
-			window.localStorage.setItem('LocationTracker:' + t, s);
+			window.localStorage.setItem(LOCAL_KEY_PREFIX + t + '|' + i, s);
 		} catch (error) {
 			answer3.value += 'Error storing to local storage at ' + t + '\n';
 		}
 	}
 	function show_storage() {
+		// Collect relevant data in 
 		let values = [];
 		for (let i = 0; i < window.localStorage.length; i++) {
 			const key = window.localStorage.key(i);
-			if (key.startsWith('LocationTracker:')) {
-				values[values.length] = window.localStorage.getItem(key);
+			if (key.startsWith(LOCAL_KEY_PREFIX)) {
+				const [time, index] = key.substr(LOCAL_KEY_LEN).split('|');
+				const data = bytes2data(window.localStorage.getItem(key));
+				values[values.length] = [
+					parseInt(time), parseInt(index), data2str(time, data)];
 			}
 		}
 		function cmp(first, second) {
-			const f = parseInt(first.substr(2, first.indexOf(',') - 2));
-			const s = parseInt(second.substr(2, second.indexOf(',') - 2));
-			return f < s;
+			if (first[0] < second[0])      return -1;
+			else if (first[0] > second[0]) return 1;
+			else if (first[1] < second[1]) return -1;
+			else if (first[1] > second[1]) return 1;
+			else                           return 0;
 		}
 		values.sort(cmp);
 		for (let i = 0; i < values.length; i++) {
-			answer3.value += values[i];
+			answer3.value += values[i][2];
 		}
 	}
 	function clear_storage() {
@@ -246,50 +334,22 @@
 			for (let i = 0; i < keys.length; i++) {
 				window.localStorage.removeItem(keys[i]);
 			}
+			answer3.value += 'Done\n';
 		}
 	}
 	// Fetch and display location data
 	let watchLocation_confirm = false;
+	let record_index = 0;
 	function showPosition(position) {
-		let a = position.coords;
-		let params = [
-				// simp_name, data, display_accuracy
-				['la', a.latitude, 0],
-				['lo', a.longitude, 0],
-				['al', a.altitude, 1000],
-				['ac', a.accuracy, 1000],
-				['aa', a.altitudeAccuracy, 1000],
-				['he', a.heading, 1000],
-				['sp', a.speed, 10]
-			];
-		const t = Date.now().toString();
-		let app = 't:' + t; 	// appending string
-		for (let i = 0; i < params.length; i += 1) {
-			let str = 'null';
-			let display_str = 'null';
-			if (!isNaN(params[i][1]) && params[i][1] != null) {
-				str = params[i][1].toString();
-				if (params[i][2] != 0) {
-					display_str = (
-						Math.round(params[i][1] * params[i][2]) / params[i][2]);
-				} else {
-					display_str = str;
-				}
-			}
-			app += ',' + params[i][0] + ':' + str;
-			// Display data in info_table
-			gebi(params[i][0]).innerText = display_str;
-		}
-		app += '\n';
-		answer.value += app;
+		const coords = position.coords;
+		const time = Date.now().toString();
+		const data = EXTRACT_DATA(coords);
+		const str = data2str(time, data);
+		display_data(data);
+		answer.value += str;
 		// Save data to localStorage
-		store_local_data(t, app);
-		// Display special data format in info_table
-		gebi('kts').innerText = unit_convert(a.speed, 1.94384449);
-		gebi('mph').innerText = unit_convert(a.speed, 2.23693629);
-		gebi('kmh').innerText = unit_convert(a.speed, 3.6);
-		gebi('la').innerText = format_degree(a.latitude);
-		gebi('lo').innerText = format_degree(a.longitude);
+		store_local_data(time, data2bytes(data), record_index);
+		record_index++;
 	}
 	function exit_refrain() {
 		window.onbeforeunload = function () {
