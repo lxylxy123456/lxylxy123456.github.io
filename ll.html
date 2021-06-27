@@ -317,9 +317,13 @@
 			else                           return 0;
 		}
 		values.sort(cmp);
+		answer3.value += (
+			'Begin of local storage (' + values.length + ' lines)\n');
 		for (let i = 0; i < values.length; i++) {
 			answer3.value += values[i][2];
 		}
+		answer3.value += (
+			'End of local storage (' + values.length + ' lines)\n');
 	}
 	function clear_storage() {
 		if (confirm('Are you sure to clear local storage?')) {
@@ -334,11 +338,11 @@
 			for (let i = 0; i < keys.length; i++) {
 				window.localStorage.removeItem(keys[i]);
 			}
-			answer3.value += 'Done\n';
+			answer3.value += 'Done (removed ' + keys.length + ' lines\n';
 		}
 	}
 	// Fetch and display location data
-	let watchLocation_confirm = false;
+	let watchLocation_id = undefined;
 	let record_index = 0;
 	function showPosition(position) {
 		const coords = position.coords;
@@ -372,14 +376,17 @@
 	}
 	function watchLocation() {
 		exit_refrain();
-		if (watchLocation_confirm == false) {
+		if (watchLocation_id !== undefined) {
 			watchLocation_confirm = true;
-		} else {
-			confirm('是否再次请求追踪？');
+			if (confirm('是否取消上一次追踪？')) {
+				navigator.geolocation.clearWatch(watchLocation_id);
+			}
 		}
-		if (navigator.geolocation)
-			navigator.geolocation.watchPosition(showPosition, showError,
-												getPositionOptions());
+		if (navigator.geolocation) {
+			watchLocation_id = (
+				navigator.geolocation.watchPosition(showPosition, showError,
+													getPositionOptions()));
+		}
 	}
 	function showError(error) {
 		return; 	// Function disabled
