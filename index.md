@@ -151,7 +151,7 @@ Screenshot of C version (XLib, Linux):
 
 Demo video on CC3200:
 
-[![Demo video on CC3200](http://img.youtube.com/vi/uDkXkYqYVf0/0.jpg)](http://www.youtube.com/watch?v=uDkXkYqYVf0)
+[![Demo video on CC3200](https://img.youtube.com/vi/uDkXkYqYVf0/0.jpg)](https://www.youtube.com/watch?v=uDkXkYqYVf0)
 
 Screenshot of final report:
 
@@ -284,11 +284,11 @@ Team KALE: Kevin Rong, Abigail Almanza, Lawrence Lee, Eric Li
 
 Project Introduction Video:
 
-[![Project Introduction Video](http://img.youtube.com/vi/FdK0AGwxkSw/0.jpg)](http://www.youtube.com/watch?v=FdK0AGwxkSw)
+[![Project Introduction Video](https://img.youtube.com/vi/FdK0AGwxkSw/0.jpg)](https://www.youtube.com/watch?v=FdK0AGwxkSw)
 
 Youtube Video Demo:
 
-[![Youtube Video Demo](http://img.youtube.com/vi/SEJCaqD7xXQ/0.jpg)](http://www.youtube.com/watch?v=SEJCaqD7xXQ)
+[![Youtube Video Demo](https://img.youtube.com/vi/SEJCaqD7xXQ/0.jpg)](https://www.youtube.com/watch?v=SEJCaqD7xXQ)
 
 Screenshot of a few pages of ngshare (most of this project is backend, though):
 
@@ -367,7 +367,7 @@ Screenshot:
 
 Demo Video:
 
-[![YxqSxod6d7o](http://img.youtube.com/vi/YxqSxod6d7o/0.jpg)](http://www.youtube.com/watch?v=YxqSxod6d7o)
+[![YxqSxod6d7o](https://img.youtube.com/vi/YxqSxod6d7o/0.jpg)](https://www.youtube.com/watch?v=YxqSxod6d7o)
 
 A new throttle control UI:
 
@@ -404,7 +404,7 @@ Hack Davis 2019 project
 
 Authors: lxylxy123456, Yiling Chen, jingyizhu, wyr
 
-[http://savemyschedule.ercli.dev/](http://savemyschedule.ercli.dev/)
+[https://savemyschedule.ercli.dev/](https://savemyschedule.ercli.dev/)
 
 ![hackdavis2019](image/hackdavis2019.png)
 
@@ -425,16 +425,16 @@ Screenshot (from PythonTalk{[02](https://github.com/lxylxy123456/HCCTalks/blob/m
 
 [ECS 251: Operating Systems](https://cs.ucdavis.edu/schedules-classes/ecs-251-operating-systems) presentation
 
-Presentation Video on [YouTube](http://www.youtube.com/watch?v=vFygLeyNd1o):
+Presentation Video on [YouTube](https://www.youtube.com/watch?v=vFygLeyNd1o):
 
-[![Youtube Presentation Video](http://img.youtube.com/vi/xtCWZYDGeAk/0.jpg)](http://www.youtube.com/watch?v=xtCWZYDGeAk)
+[![Youtube Presentation Video](https://img.youtube.com/vi/xtCWZYDGeAk/0.jpg)](https://www.youtube.com/watch?v=xtCWZYDGeAk)
 
 ## [cs188](https://github.com/lxylxy123456/cs188)
 [ECS 188: Ethics in an Age of Technology](https://cs.ucdavis.edu/schedules-classes/ecs-188-ethics-age-technology) paper and presentation
 
-Presentation Video on [YouTube](http://www.youtube.com/watch?v=vFygLeyNd1o):
+Presentation Video on [YouTube](https://www.youtube.com/watch?v=vFygLeyNd1o):
 
-[![Youtube Presentation Video](http://img.youtube.com/vi/vFygLeyNd1o/0.jpg)](http://www.youtube.com/watch?v=vFygLeyNd1o)
+[![Youtube Presentation Video](https://img.youtube.com/vi/vFygLeyNd1o/0.jpg)](https://www.youtube.com/watch?v=vFygLeyNd1o)
 
 Screenshot of presentation slides (left) and paper (right):
 
