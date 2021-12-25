@@ -13,3 +13,6 @@ vi conf.py
 	html_theme = 'sphinx_rtd_theme'
 ```
 
+Reference:
+<https://tech.michaelaltfield.net/2020/07/18/sphinx-rtd-github-pages-1/>
+
