@@ -10,4 +10,5 @@ ln -s ../../docs _build/html
 make html
 popd
 cp *.html docs
+touch docs/.nojekyll
 
