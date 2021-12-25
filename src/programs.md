@@ -42,6 +42,8 @@ Enable tail call optimization (`make TR=1`)
 -> 
 ```
 
+<hr />
+
 ## [algorithms](https://github.com/lxylxy123456/algorithms)
 Personal implementation of some algorithms in "[Introduction to Algorithms](https://mitpress.mit.edu/books/introduction-algorithms-third-edition)", third edition
 
@@ -82,6 +84,8 @@ k = 6
 >> 
 ```
 
+<hr />
+
 ## [ECS150Demo](https://github.com/lxylxy123456/ECS150Demo)
 Some demo programs related to the operating systems class ([ECS 150](https://www.cs.ucdavis.edu/blog/ecs-150-operating-systems-system-programming/))
 
@@ -105,6 +109,8 @@ $
 * `page_table.py`: Draw the page table of a process from `/proc/[pid]/maps`
 ![page2frame demo](image/page2frame.png)
 
+<hr />
+
 ## [eec172](https://github.com/lxylxy123456/eec172)
 Brick Breaker game implemented in Python, C (XLib, Linux), and C (CC3200, Texas Instruments)
 
@@ -119,6 +125,8 @@ Demo video on CC3200:
 Screenshot of final report:
 
 ![eec172_2.png](image/eec172_2.png)
+
+<hr />
 
 ## [ECS160HW4](https://github.com/lxylxy123456/ECS160HW4)
 A (possibly) flawless C program that calculates the top 10 tweeters (by volume of tweets) in a given CSV file of tweets. Submitted for Homework 4 of [ECS 160](https://www.cs.ucdavis.edu/blog/ecs-160-software-engineering/) Fall 2019. 

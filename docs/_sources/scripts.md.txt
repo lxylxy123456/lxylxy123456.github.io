@@ -7,6 +7,8 @@ Download page screenshot:
 
 ![cariboublocker.png](image/cariboublocker.png)
 
+<hr />
+
 ## [turing-machine](https://github.com/lxylxy123456/turing-machine)
 Python implementation of DFA and Turing Machine
 
@@ -74,6 +76,8 @@ B	 1(1)1 1 0
 H	 1 1(1)1 0 
 True	6	 1 1(1)1 
 ```
+
+<hr />
 
 ## [flashplayer-update](https://github.com/lxylxy123456/flashplayer-update)
 Automatically Install the Flash plugin for Mozilla Firefox on Linux

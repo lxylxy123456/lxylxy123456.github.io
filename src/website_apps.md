@@ -21,6 +21,8 @@ Screenshot of a few pages of ngshare (most of this project is backend, though):
 
 ![ngshare](image/ngshare.png)
 
+<hr />
+
 ## [shierquan](https://github.com/lxylxy123456/shierquan)
 An easy event publication & management platform
 
@@ -52,6 +54,8 @@ Japanese home page:
 
 ![ja-home](image/shierquan04.png)
 
+<hr />
+
 ## container
 A file storage service
 
@@ -61,6 +65,8 @@ Visit: [https://c.ercli.dev/](https://c.ercli.dev/)
 ![Home](image/container01.png)
 
 ![File page](image/container02.png)
+
+<hr />
 
 ## chat-io
 An instant messaging platform
@@ -74,6 +80,8 @@ Visit: [https://ercli.dev/](https://ercli.dev/)
 
 ![Messaging](image/chat-io02.png)
 
+<hr />
+
 ## [FGFS-Controller](https://github.com/lxylxy123456/FGFS-Controller)
 An iOS app that controls a flight simulator
  ([FGFS](https://www.flightgear.org/)) on a computer.
@@ -84,6 +92,8 @@ Data are collected through accelerometer in the iOS device, and transmitted
  using UDP packets.
 
 ![FGFS-Controller.png](image/FGFS-Controller.png)
+
+<hr />
 
 ## [FGFSControllerWeb](https://github.com/lxylxy123456/FGFSControllerWeb)
 A web app with similar functionality as FGFS-Controller above.
@@ -104,6 +114,8 @@ Receiver (made with pygame):
 
 ![FGFSControllerWeb3.png](image/FGFSControllerWeb3.png)
 
+<hr />
+
 ## [LocationTracker](https://github.com/lxylxy123456/LocationTracker)
 An iOS APP that track the location of an iPhone
 
@@ -119,12 +131,16 @@ In plane:
 
 ![LocationTracker3.jpg](image/LocationTracker3.jpg)
 
+<hr />
+
 ## [LocationTrackerWeb](https://github.com/lxylxy123456/LocationTrackerWeb)
 A web app with similar functionality is available at: [https://www.ercli.dev/ll.html](https://www.ercli.dev/ll.html) or [https://lxylxy123456.github.io/ll.html](https://lxylxy123456.github.io/ll.html).
 
 Animated Demo: [gif](https://github.com/lxylxy123456/LocationTrackerWeb/blob/master/demo.gif) / [Youtube](https://www.youtube.com/watch?v=el0oN_0p9EM)
 
 ![LocationTrackerWeb.png](image/LocationTrackerWeb.png)
+
+<hr />
 
 ## [hackdavis2019](https://github.com/lxylxy123456/hackdavis2019)
 Hack Davis 2019 project
@@ -134,6 +150,8 @@ Authors: lxylxy123456, Yiling Chen, jingyizhu, wyr
 [https://savemyschedule.ercli.dev/](https://savemyschedule.ercli.dev/)
 
 ![hackdavis2019](image/hackdavis2019.png)
+
+<hr />
 
 ## [lxylxy123456.github.io](https://github.com/lxylxy123456/lxylxy123456.github.io)
 My [homepage](https://lxylxy123456.github.io) (this website)
