@@ -10,5 +10,6 @@ sudo pip3 install sphinx recommonmark sphinx_rtd_theme
 sphinx-quickstart
 vi conf.py
 	extensions = ['recommonmark']
+	html_theme = 'sphinx_rtd_theme'
 ```
 
