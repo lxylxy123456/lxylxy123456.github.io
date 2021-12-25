@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<!--
+	This program records a device's location with human-readable lines
+	Normally the file should be hosted in https://www.ercli.dev/ll.html
+	Copyright (C) 2020-2021  Eric Li 李宵逸
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Affero General Public License as
+	published by the Free Software Foundation, either version 3 of the
+	License, or (at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Affero General Public License for more details.
+
+	You should have received a copy of the GNU Affero General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;
+                                 maximum-scale=1.0; user-scalable=no">
+  <title>LocationTrackerWeb</title>
+  <style>
+	* {
+		box-sizing: border-box;
+	}
+	html, body {
+		height: 100%;
+	}
+	body {
+		margin: 0px;
+		padding: 8px;
+		overflow: hidden;	/* disable scroll */
+	}
+	body.flex {
+		display: flex;
+		flex-direction: column;
+	}
+	div.page {
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+	}
+	.row {
+		display: flex;
+		flex-direction: row;
+		
+	}
+	.col-2 {
+		flex-grow: 1;
+		float: left;
+		overflow: hidden;
+	}
+	.col-4 {
+		flex-grow: 2;
+		float: left;
+		overflow: hidden;
+	}
+	textarea {
+		width: 100%;
+		flex-grow: 1;
+		white-space: pre;
+		overflow-wrap: normal;
+		overflow-x: scroll;
+	}
+	.big {
+		font-size: 1.5em;
+	}
+	.gray {
+		color: gray;
+	}
+	span.border {
+		border: 1px solid gray;
+		/* white-space: nowrap; */
+	}
+  </style>
+</head>
+<body class="flex">
+
+  <div id="upper_btns" class="row">
+    <button class="col-2" onclick="watchLocation();">追踪</button>
+    <button class="col-2" onclick="getLocation();">定时</button>
+    <button class="col-2" onclick="toggleConfig();">设置</button>
+    <button class="col-2" onclick="answer_scroll();">滚动</button>
+    <button class="col-4" onclick="swap_info();">交换</button>
+  </div>
+
+  <div id="main_page" class="page">
+    <div id="info_table">
+      <div class="row big">
+        <span class="col-4 border" id="lo">经度</span>
+        <span class="col-4 border" id="la">纬度</span>
+        <span class="col-4 border"><span id="al">高度</span> m</span>
+      </div>
+      <div class="row">
+        <span class="col-4 border big"><span id="he">朝向</span> deg</span>
+        <span class="col-2 border gray"><span id="ac">精确度</span> m</span>
+        <span class="col-4 border big"><span id="sp">速度</span> m/s</span>
+        <span class="col-2 border gray"><span id="aa">高度精确度</span> m</span>
+      </div>
+      <div class="row big">
+        <span class="col-4 border"><span id="kts">速度节</span> kts</span>
+        <span class="col-4 border"><span id="mph">速度迈</span> mph</span>
+        <span class="col-4 border"><span id="kmh">速度千米时</span> km/h</span>
+      </div>
+    </div>
+
+    <textarea id="answer2" autocomplete="off"></textarea>
+    <textarea id="answer" autocomplete="off"></textarea>
+  </div>
+
+  <div id="config_page" class="page" style="display: none;">
+    <div id="config_btns" class="row">
+      <div class="col-2">
+        <input type="checkbox" name="accurate" value="high" autocomplete="off"
+               onclick="accurate_clicked(event);">
+        <label for="accurate" onclick="accurate_clicked(event);">非精确</label>
+      </div>
+      <div class="col-2">
+        <input id="local_save_chk" type="checkbox" name="local_save"
+               autocomplete="off" onclick="local_save_clicked()">
+        <label for="local_save" onclick="local_save_clicked()">
+          禁用本地储存
+        </label>
+      </div>
+      <button class="col-2" onclick="show_storage();">显示本地储存</button>
+      <button class="col-2" onclick="clear_storage();">清除本地储存</button>
+      <button class="col-2" onclick="clear_storage_text();">清除文本</button>
+    </div>
+    <textarea id="answer3" autocomplete="off"></textarea>
+  </div>
+
+  <div id="lower_btns" class="row"></div>
+
+  <script type="text/javascript">
+	// Initialize
+	lower_btns.innerHTML = upper_btns.innerHTML;
+	// Definitions
+	const LABELS = ['la', 'lo', 'al', 'ac', 'aa', 'he', 'sp'];
+	const EXTRACT_DATA = (x) => [
+		x.latitude, x.longitude, x.altitude, x.accuracy, x.altitudeAccuracy,
+		x.heading, x.speed];
+	const DISPLAY_ACCURACY = [0, 0, 1000, 1000, 1000, 1000, 10];
+	// Helper functions
+	function gebi(id) {
+		return document.getElementById(id)
+	}
+	function unit_convert(speed, multiplier) {
+		// Convert speed in m/s to a different unit (e.g. mph, kts)
+		if (speed === null) {
+			return "null";
+		} else {
+			return Math.round(speed * multiplier * 10) / 10;
+		}
+	}
+	function format_degree(raw_data) {
+		// 123.101 -> "123°06'36''.6" (similar to "%02d°%02d'%02d''%.6f")
+		let sgn = raw_data < 0 ? '-' : '';
+		let rem = raw_data < 0 ? -raw_data : raw_data;
+		let deg = Math.trunc(rem);
+		rem = (rem - deg) * 60.0;
+		let min = Math.trunc(rem);
+		rem = (rem - min) * 60.0;
+		let sec = Math.trunc(rem);
+		rem = (rem - sec) * 1000000.0;
+		let point = Math.trunc(rem);
+		return (sgn + deg + '°' + min.toString().padStart(2, '0')
+					+ "'" + sec.toString().padStart(2, '0')
+					+ "''." + point.toString().padStart(6, '0'))
+	}
+	function data2str(time, data) {
+		// Convert data to string (for the user to copy)
+		let ans = 't:' + time;
+		for (let i = 0; i < LABELS.length; i += 1) {
+			let str = 'null';
+			let display_str = 'null';
+			const label = LABELS[i];
+			const value = data[i];
+			if (!isNaN(value) && value != null) {
+				str = value.toString();
+			}
+			ans += ',' + label + ':' + str;
+		}
+		ans += '\n';
+		return ans;
+	}
+	function display_data(data) {
+		// Display a data
+		for (let i = 0; i < LABELS.length; i += 1) {
+			let display_str = 'null';
+			const label = LABELS[i];
+			const value = data[i];
+			const round = DISPLAY_ACCURACY[i];
+			if (!isNaN(value) && value != null) {
+				if (round != 0) {
+					display_str = Math.round(value * round) / round;
+				} else {
+					display_str = value.toString();
+				}
+			}
+			gebi(label).innerText = display_str;
+		}
+		gebi('la').innerText = format_degree(data[0]);
+		gebi('lo').innerText = format_degree(data[1]);
+		gebi('kts').innerText = unit_convert(data[6], 1.94384449);
+		gebi('mph').innerText = unit_convert(data[6], 2.23693629);
+		gebi('kmh').innerText = unit_convert(data[6], 3.6);
+	}
+	function data2bytes(data) {
+		// Convert data (a list of doubles) to bytes
+		const f64arr = new Float64Array(data);
+		const i16arr = new Int16Array(f64arr.buffer);
+		let isnan = 0;
+		for (let i = 0; i < data.length; i++) {
+			isnan <<= 1;
+			if (isNaN(data[i]) || data[i] == null) {
+				isnan |= 1;
+			}
+		}
+		bytes = String.fromCharCode(isnan);
+		for (let i = 0; i < i16arr.length; i++) {
+			bytes += String.fromCharCode(i16arr[i]);
+		}
+		return bytes;
+	}
+	function bytes2data(bytes) {
+		// Convert bytes to data (a list of doubles)
+		let isnan = bytes.charCodeAt(0);
+		let i16 = [];
+		for (let i = 1; i < bytes.length; i++) {
+			i16[i16.length] = bytes.charCodeAt(i);
+		}
+		const i16arr = new Int16Array(i16);
+		const f64arr = new Float64Array(i16arr.buffer);
+		let data = Array.from(f64arr);
+		for (let i = data.length - 1; i >= 0; i--) {
+			if (isnan & 1) {
+				data[i] = NaN;
+			}
+			isnan >>= 1;
+		}
+		return data;
+	}
+	// Handle UI change functions
+	let accurate = true;
+	function accurate_clicked(event) {
+		// alert(event.target);
+		let checkboxs = document.getElementsByName("accurate");
+		for (let i = 0; i < checkboxs.length; i++) {
+			checkboxs[i].checked = accurate;
+		}
+		accurate = !accurate;
+	}
+	let local_save = true;
+	function local_save_clicked() {
+		gebi("local_save_chk").checked = local_save;
+		local_save = !local_save;
+	}
+	function toggleConfig() {
+		const config = gebi('config_page').style['display'] == 'none';
+		const cv = config ? '' : 'none';
+		const mv = config ? 'none' : '';
+		gebi('config_page').style.setProperty('display', cv);
+		gebi('main_page').style.setProperty('display', mv);
+	}
+	function answer_scroll() {
+		if (answer2.scrollTop != 0) {
+			answer2.scrollTop = 0;
+		} else {
+			answer2.scrollTop = answer2.scrollHeight;
+		}
+		if (answer3.scrollTop != 0) {
+			answer3.scrollTop = 0;
+		} else {
+			answer3.scrollTop = answer3.scrollHeight;
+		}
+	}
+	function swap_info() {
+		answer2.value += answer.value;
+		answer.value = '';
+	}
+	function clear_storage_text() {
+		answer3.value = '';
+	}
+	// Handle local storage
+	const LOCAL_KEY_PREFIX = 'LocationTracker:';
+	const LOCAL_KEY_LEN = LOCAL_KEY_PREFIX.length;
+	function store_local_data(t, s, i) {
+		if (!local_save)
+			return;
+		try {
+			window.localStorage.setItem(LOCAL_KEY_PREFIX + t + '|' + i, s);
+		} catch (error) {
+			answer3.value += 'Error storing to local storage at ' + t + '\n';
+		}
+	}
+	function show_storage() {
+		// Collect relevant data in 
+		let values = [];
+		for (let i = 0; i < window.localStorage.length; i++) {
+			const key = window.localStorage.key(i);
+			if (key.startsWith(LOCAL_KEY_PREFIX)) {
+				const [time, index] = key.substr(LOCAL_KEY_LEN).split('|');
+				const data = bytes2data(window.localStorage.getItem(key));
+				values[values.length] = [
+					parseInt(time), parseInt(index), data2str(time, data)];
+			}
+		}
+		function cmp(first, second) {
+			if (first[0] < second[0])      return -1;
+			else if (first[0] > second[0]) return 1;
+			else if (first[1] < second[1]) return -1;
+			else if (first[1] > second[1]) return 1;
+			else                           return 0;
+		}
+		values.sort(cmp);
+		answer3.value += (
+			'Begin of local storage (' + values.length + ' lines)\n');
+		for (let i = 0; i < values.length; i++) {
+			answer3.value += values[i][2];
+		}
+		answer3.value += (
+			'End of local storage (' + values.length + ' lines)\n');
+	}
+	function clear_storage() {
+		if (confirm('Are you sure to clear local storage?')) {
+			// window.localStorage.clear();
+			let keys = [];
+			for (let i = 0; i < window.localStorage.length; i++) {
+				const key = window.localStorage.key(i);
+				if (key.startsWith('LocationTracker:')) {
+					keys[keys.length] = key;
+				}
+			}
+			for (let i = 0; i < keys.length; i++) {
+				window.localStorage.removeItem(keys[i]);
+			}
+			answer3.value += 'Done (removed ' + keys.length + ' lines\n';
+		}
+	}
+	// Fetch and display location data
+	let watchLocation_id = undefined;
+	let record_index = 0;
+	function showPosition(position) {
+		const coords = position.coords;
+		const time = Date.now().toString();
+		const data = EXTRACT_DATA(coords);
+		const str = data2str(time, data);
+		display_data(data);
+		answer.value += str;
+		// Save data to localStorage
+		store_local_data(time, data2bytes(data), record_index);
+		record_index++;
+	}
+	function exit_refrain() {
+		window.onbeforeunload = function () {
+			return "Are you sure to close the window?";
+		};
+	}
+	function getPositionOptions() {
+		// https://developer.mozilla.org/zh-CN/docs/Web/API/PositionOptions
+		return { enableHighAccuracy: accurate };
+	}
+	function getLocation() {
+		exit_refrain();
+		if (navigator.geolocation && confirm('是否持续请求定位？')) {
+			navigator.geolocation.getCurrentPosition(showPosition, showError,
+													getPositionOptions());
+			setInterval("navigator.geolocation.getCurrentPosition" +
+						"(showPosition,showError,getPositionOptions());",
+						30000);
+		}
+	}
+	function watchLocation() {
+		exit_refrain();
+		if (watchLocation_id !== undefined) {
+			watchLocation_confirm = true;
+			if (confirm('是否取消上一次追踪？')) {
+				navigator.geolocation.clearWatch(watchLocation_id);
+			}
+		}
+		if (navigator.geolocation) {
+			watchLocation_id = (
+				navigator.geolocation.watchPosition(showPosition, showError,
+													getPositionOptions()));
+		}
+	}
+	function showError(error) {
+		return; 	// Function disabled
+		switch(error.code) {
+			case error.PERMISSION_DENIED:
+				alert('PERMISSION_DENIED');		break;
+			case error.POSITION_UNAVAILABLE:
+				alert('POSITION_UNAVAILABLE');	break;
+			case error.TIMEOUT:
+				alert('TIMEOUT');				break;
+			case error.UNKNOWN_ERROR:
+				alert('UNKNOWN_ERROR');			break;
+		}
+	}
+  </script>
+</body>
+

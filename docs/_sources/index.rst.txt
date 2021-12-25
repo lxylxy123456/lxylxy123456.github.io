@@ -3,18 +3,30 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to lxylxy123456.github.io's documentation!
-==================================================
+Lxylxy123456's GitHub Projects
+==============================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Programs
 
-   home
+   programs
 
-Indices and tables
-==================
+.. toctree::
+   :maxdepth: 2
+   :caption: Scripts
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   scripts
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Websites and APPs
+
+   website_apps
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Tutorials and non-programs
+
+   tutorial_nonprog
+
