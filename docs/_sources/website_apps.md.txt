@@ -28,8 +28,10 @@ An easy event publication & management platform
 
 Visit:
 [中文](https://zh.shierquan.ercli.dev/) / 
-[English](https://en.shierquan.ercli.dev/) / 
-[日本語](https://ja.shierquan.ercli.dev/) (static texts only)
+[English](https://en.shierquan.ercli.dev/) (static texts only) / 
+[日本語](https://ja.shierquan.ercli.dev/) (static texts only) / 
+Chinese homepage
+[archive](https://web.archive.org/web/20190629061223/http://shierquan.tk/)
 
 [Django](https://www.djangoproject.com/) + 
 [BootStrap](https://getbootstrap.com/) + 
