@@ -9,6 +9,6 @@ mkdir ../docs
 ln -s ../../docs _build/html
 make html
 popd
-cp *.html docs
+cp *.html live.sh docs
 touch docs/.nojekyll
 
