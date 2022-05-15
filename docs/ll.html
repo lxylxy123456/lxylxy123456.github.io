@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--
 	This program records a device's location with human-readable lines
-	Normally the file should be hosted in https://www.ercli.dev/ll.html
-	Copyright (C) 2020-2021  Eric Li 李宵逸
+	Normally the file should be hosted in https://vps.hcc.io/l.html
+	Copyright (C) 2020-2022  Eric Li 李宵逸
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Affero General Public License as
@@ -47,7 +47,6 @@
 	.row {
 		display: flex;
 		flex-direction: row;
-		
 	}
 	.col-2 {
 		flex-grow: 1;
@@ -91,9 +90,18 @@
   <div id="main_page" class="page">
     <div id="info_table">
       <div class="row big">
-        <span class="col-4 border" id="lo">经度</span>
-        <span class="col-4 border" id="la">纬度</span>
-        <span class="col-4 border"><span id="al">高度</span> m</span>
+        <div class="col-4">
+          <div class="row"><span class="col-4 border" id="lo">经度</span></div>
+          <div class="row"><span class="col-4 border" id="la">纬度</span></div>
+        </div>
+        <div class="col-2">
+          <div class="row">
+            <span class="col-2 border"><span id="al">高度米</span> m</span>
+          </div>
+          <div class="row">
+            <span class="col-2 border"><span id="ft">高度英尺</span> ft</span>
+          </div>
+        </div>
       </div>
       <div class="row">
         <span class="col-4 border big"><span id="he">朝向</span> deg</span>
@@ -148,16 +156,16 @@
 	function gebi(id) {
 		return document.getElementById(id)
 	}
-	function unit_convert(speed, multiplier) {
-		// Convert speed in m/s to a different unit (e.g. mph, kts)
-		if (speed === null) {
+	function unit_convert(value, multiplier) {
+		// Convert value (e.g. speed in m/s) to a different unit (e.g. mph, kts)
+		if (value === null) {
 			return "null";
 		} else {
-			return Math.round(speed * multiplier * 10) / 10;
+			return Math.round(value * multiplier * 10) / 10;
 		}
 	}
 	function format_degree(raw_data) {
-		// 123.101 -> "123°06'36''.6" (similar to "%02d°%02d'%02d''%.6f")
+		// 123.101 -> "123°06'03''.599" (similar to "%02d°%02d'%02d''%.3f")
 		let sgn = raw_data < 0 ? '-' : '';
 		let rem = raw_data < 0 ? -raw_data : raw_data;
 		let deg = Math.trunc(rem);
@@ -165,11 +173,11 @@
 		let min = Math.trunc(rem);
 		rem = (rem - min) * 60.0;
 		let sec = Math.trunc(rem);
-		rem = (rem - sec) * 1000000.0;
+		rem = (rem - sec) * 1000.0;
 		let point = Math.trunc(rem);
 		return (sgn + deg + '°' + min.toString().padStart(2, '0')
 					+ "'" + sec.toString().padStart(2, '0')
-					+ "''." + point.toString().padStart(6, '0'))
+					+ "''." + point.toString().padStart(3, '0'))
 	}
 	function data2str(time, data) {
 		// Convert data to string (for the user to copy)
@@ -205,6 +213,7 @@
 		}
 		gebi('la').innerText = format_degree(data[0]);
 		gebi('lo').innerText = format_degree(data[1]);
+		gebi('ft').innerText = unit_convert(data[2], 3.2808399);
 		gebi('kts').innerText = unit_convert(data[6], 1.94384449);
 		gebi('mph').innerText = unit_convert(data[6], 2.23693629);
 		gebi('kmh').innerText = unit_convert(data[6], 3.6);
@@ -318,12 +327,12 @@
 		}
 		values.sort(cmp);
 		answer3.value += (
-			'Begin of local storage (' + values.length + ' lines)\n');
+			'# Begin of local storage (' + values.length + ' lines)\n');
 		for (let i = 0; i < values.length; i++) {
 			answer3.value += values[i][2];
 		}
 		answer3.value += (
-			'End of local storage (' + values.length + ' lines)\n');
+			'# End of local storage (' + values.length + ' lines)\n');
 	}
 	function clear_storage() {
 		if (confirm('Are you sure to clear local storage?')) {
@@ -338,7 +347,7 @@
 			for (let i = 0; i < keys.length; i++) {
 				window.localStorage.removeItem(keys[i]);
 			}
-			answer3.value += 'Done (removed ' + keys.length + ' lines\n';
+			answer3.value += '# Done (removed ' + keys.length + ' lines)\n';
 		}
 	}
 	// Fetch and display location data
@@ -377,10 +386,8 @@
 	function watchLocation() {
 		exit_refrain();
 		if (watchLocation_id !== undefined) {
-			watchLocation_confirm = true;
-			if (confirm('是否取消上一次追踪？')) {
-				navigator.geolocation.clearWatch(watchLocation_id);
-			}
+			alert('即将取消上一次追踪');
+			navigator.geolocation.clearWatch(watchLocation_id);
 		}
 		if (navigator.geolocation) {
 			watchLocation_id = (
