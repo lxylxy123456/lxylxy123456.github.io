@@ -81,7 +81,7 @@
 
   <div id="upper_btns" class="row">
     <button class="col-2" onclick="watchLocation();">追踪</button>
-    <button class="col-2" onclick="getLocation();">定时</button>
+    <button class="col-2" onclick="unwatchLocation();">停止</button>
     <button class="col-2" onclick="toggleConfig();">设置</button>
     <button class="col-2" onclick="answer_scroll();">滚动</button>
     <button class="col-4" onclick="swap_info();">交换</button>
@@ -373,21 +373,12 @@
 		// https://developer.mozilla.org/zh-CN/docs/Web/API/PositionOptions
 		return { enableHighAccuracy: accurate };
 	}
-	function getLocation() {
-		exit_refrain();
-		if (navigator.geolocation && confirm('是否持续请求定位？')) {
-			navigator.geolocation.getCurrentPosition(showPosition, showError,
-													getPositionOptions());
-			setInterval("navigator.geolocation.getCurrentPosition" +
-						"(showPosition,showError,getPositionOptions());",
-						30000);
-		}
-	}
 	function watchLocation() {
 		exit_refrain();
 		if (watchLocation_id !== undefined) {
-			alert('即将取消上一次追踪');
+			alert('即将取消上一次追踪，并重新请求追踪');
 			navigator.geolocation.clearWatch(watchLocation_id);
+			watchLocation_id = undefined;
 		}
 		if (navigator.geolocation) {
 			watchLocation_id = (
@@ -395,18 +386,26 @@
 													getPositionOptions()));
 		}
 	}
+	function unwatchLocation() {
+		if (watchLocation_id !== undefined) {
+			navigator.geolocation.clearWatch(watchLocation_id);
+			watchLocation_id = undefined;
+			alert('已取消上一次追踪');
+		}
+	}
 	function showError(error) {
-		return; 	// Function disabled
+		var error_type = 'UNDEFINED';
 		switch(error.code) {
 			case error.PERMISSION_DENIED:
-				alert('PERMISSION_DENIED');		break;
+				error_type = 'PERMISSION_DENIED';
 			case error.POSITION_UNAVAILABLE:
-				alert('POSITION_UNAVAILABLE');	break;
+				error_type = 'POSITION_UNAVAILABLE';
 			case error.TIMEOUT:
-				alert('TIMEOUT');				break;
+				error_type = 'TIMEOUT';
 			case error.UNKNOWN_ERROR:
-				alert('UNKNOWN_ERROR');			break;
+				error_type = 'UNKNOWN_ERROR';
 		}
+		answer.value += '## watchPosition(): ' + error_type + '\n';
 	}
   </script>
 </body>
