@@ -121,22 +121,32 @@
   </div>
 
   <div id="config_page" class="page" style="display: none;">
-    <div id="config_btns" class="row">
-      <div class="col-2">
-        <input type="checkbox" name="accurate" value="high" autocomplete="off"
-               onclick="accurate_clicked(event);">
+    <div class="row">
+      <div class="col-4">
+        <input id="accurate_chk" type="checkbox" name="accurate" value="high"
+               autocomplete="off" onclick="accurate_clicked(event);">
         <label for="accurate" onclick="accurate_clicked(event);">非精确</label>
       </div>
-      <div class="col-2">
+      <div class="col-4">
+        <input id="line_lim_chk" type="checkbox" name="line_lim"
+               autocomplete="off" onclick="line_lim_clicked(event);">
+        <label for="line_lim" onclick="line_lim_clicked(event);">
+          不限制文本为10行
+        </label>
+      </div>
+      <div class="col-4">
         <input id="local_save_chk" type="checkbox" name="local_save"
-               autocomplete="off" onclick="local_save_clicked()">
-        <label for="local_save" onclick="local_save_clicked()">
+               autocomplete="off" onclick="local_save_clicked();">
+        <label for="local_save" onclick="local_save_clicked();">
           禁用本地储存
         </label>
       </div>
-      <button class="col-2" onclick="show_storage();">显示本地储存</button>
+    </div>
+    <div class="row">
+      <button class="col-4" onclick="show_storage();">显示本地储存</button>
+      <button class="col-2" onclick="show_storage_range();">分段显示本地储存</button>
       <button class="col-2" onclick="clear_storage();">清除本地储存</button>
-      <button class="col-2" onclick="clear_storage_text();">清除文本</button>
+      <button class="col-4" onclick="clear_storage_text();">清除文本</button>
     </div>
     <textarea id="answer3" autocomplete="off"></textarea>
   </div>
@@ -256,12 +266,13 @@
 	// Handle UI change functions
 	let accurate = true;
 	function accurate_clicked(event) {
-		// alert(event.target);
-		let checkboxs = document.getElementsByName("accurate");
-		for (let i = 0; i < checkboxs.length; i++) {
-			checkboxs[i].checked = accurate;
-		}
+		gebi("accurate_chk").checked = accurate;
 		accurate = !accurate;
+	}
+	let line_lim = true;
+	function line_lim_clicked() {
+		gebi("line_lim_chk").checked = line_lim;
+		line_lim = !line_lim;
 	}
 	let local_save = true;
 	function local_save_clicked() {
@@ -306,8 +317,8 @@
 			answer3.value += 'Error storing to local storage at ' + t + '\n';
 		}
 	}
-	function show_storage() {
-		// Collect relevant data in 
+	function collect_storage() {
+		// Collect relevant data in local storage
 		let values = [];
 		for (let i = 0; i < window.localStorage.length; i++) {
 			const key = window.localStorage.key(i);
@@ -326,6 +337,10 @@
 			else                           return 0;
 		}
 		values.sort(cmp);
+		return values;
+	}
+	function show_storage() {
+		const values = collect_storage();
 		answer3.value += (
 			'# Begin of local storage (' + values.length + ' lines)\n');
 		for (let i = 0; i < values.length; i++) {
@@ -333,6 +348,34 @@
 		}
 		answer3.value += (
 			'# End of local storage (' + values.length + ' lines)\n');
+	}
+	function show_storage_range() {
+		const command = answer3.value.trim();
+		matched = command.match(/^(\d+)-(\d+)$/)
+		if (matched != null) {
+			const begin = parseInt(matched[1]);
+			const end = parseInt(matched[2]);
+			const values = collect_storage();
+			answer3.value = '# #lines before slice: ' + values.length + '\n';
+			answer3.value += (
+				'# Begin of local storage (start at line ' + begin + ')\n');
+			for (let i = 0; i < values.length; i++) {
+				if (begin <= i && i < end) {
+					answer3.value += values[i][2];
+				}
+			}
+			answer3.value += (
+				'# End of local storage (end at line ' + end + ')\n');
+		} else if (command == 'len') {
+			answer3.value = 'Length: ' + collect_storage().length + '\n';
+		} else {
+			answer3.value = 'Enter command in this input box:\n';
+			answer3.value += '    len:\tshow total number of lines (current '
+			answer3.value += 'implementation is inefficient)\n';
+			answer3.value += '    0-100:\tshow first 100 lines\n';
+			answer3.value += '    100-200:\tshow second 100 lines\n';
+			answer3.value += '    ...\n';
+		}
 	}
 	function clear_storage() {
 		if (confirm('Are you sure to clear local storage?')) {
@@ -363,6 +406,11 @@
 		// Save data to localStorage
 		store_local_data(time, data2bytes(data), record_index);
 		record_index++;
+		// Limit text length
+		if (line_lim) {
+			const arr = answer.value.split("\n")
+			answer.value = arr.slice(Math.max(arr.length - 10, 0)).join("\n");
+		}
 	}
 	function exit_refrain() {
 		window.onbeforeunload = function () {
