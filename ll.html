@@ -2,7 +2,7 @@
 <!--
 	This program records a device's location with human-readable lines
 	Normally the file should be hosted in https://vps.hcc.io/l.html
-	Copyright (C) 2020-2022  Eric Li 李宵逸
+	Copyright (C) 2020-2026  Eric Li 李宵逸
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Affero General Public License as
@@ -38,6 +38,9 @@
 	body.flex {
 		display: flex;
 		flex-direction: column;
+	}
+	button {
+		font-size: 1em;
 	}
 	div.page {
 		flex-grow: 1;
@@ -75,6 +78,12 @@
 		border: 1px solid gray;
 		/* white-space: nowrap; */
 	}
+	.warn {
+		background-color: yellow;
+	}
+	.cyan {
+		background-color: cyan;
+	}
   </style>
 </head>
 <body class="flex">
@@ -89,6 +98,12 @@
 
   <div id="main_page" class="page">
     <div id="info_table">
+      <div class="row big">
+        <span class="col-4 border" id="tr">实时时间</span>
+      </div>
+      <div class="row big">
+        <span class="col-4 border" id="tg">GPS时间</span>
+      </div>
       <div class="row big">
         <div class="col-4">
           <div class="row"><span class="col-4 border" id="lo">经度</span></div>
@@ -122,19 +137,26 @@
 
   <div id="config_page" class="page" style="display: none;">
     <div class="row">
-      <div class="col-4">
+      <div class="col-2">
         <input id="accurate_chk" type="checkbox" name="accurate" value="high"
                autocomplete="off" onclick="accurate_clicked(event);">
         <label for="accurate" onclick="accurate_clicked(event);">非精确</label>
       </div>
-      <div class="col-4">
+      <div class="col-2">
         <input id="line_lim_chk" type="checkbox" name="line_lim"
                autocomplete="off" onclick="line_lim_clicked(event);">
         <label for="line_lim" onclick="line_lim_clicked(event);">
           不限制文本为10行
         </label>
       </div>
-      <div class="col-4">
+      <div class="col-2">
+        <input id="screen_lock_chk" type="checkbox" name="screen_lock"
+               autocomplete="off" onclick="screen_lock_clicked(event);">
+        <label for="screen_lock" onclick="screen_lock_clicked(event);">
+          不禁止锁屏
+        </label>
+      </div>
+      <div class="col-2">
         <input id="local_save_chk" type="checkbox" name="local_save"
                autocomplete="off" onclick="local_save_clicked();">
         <label for="local_save" onclick="local_save_clicked();">
@@ -145,6 +167,9 @@
     <div class="row">
       <button class="col-4" onclick="show_storage();">显示本地储存</button>
       <button class="col-2" onclick="show_storage_range();">分段显示本地储存</button>
+    </div>
+    <div class="row">
+      <button class="col-2" onclick="download_storage();">下载本地储存</button>
       <button class="col-2" onclick="clear_storage();">清除本地储存</button>
       <button class="col-4" onclick="clear_storage_text();">清除文本</button>
     </div>
@@ -155,7 +180,9 @@
 
   <script type="text/javascript">
 	// Initialize
-	lower_btns.innerHTML = upper_btns.innerHTML;
+	for (let i of upper_btns.children) {
+		lower_btns.append(i.cloneNode(true));
+	}
 	// Definitions
 	const LABELS = ['la', 'lo', 'al', 'ac', 'aa', 'he', 'sp'];
 	const EXTRACT_DATA = (x) => [
@@ -205,7 +232,23 @@
 		ans += '\n';
 		return ans;
 	}
-	function display_data(data) {
+	function date2str_utc(d) {
+		return (d.getUTCFullYear().toString().padStart(4, '0') + '-' +
+				d.getUTCMonth().toString().padStart(2, '0') + '-' +
+				d.getUTCDay().toString().padStart(2, '0') + ' ' +
+				d.getUTCHours().toString().padStart(2, '0') + ':' +
+				d.getUTCMinutes().toString().padStart(2, '0') + ':' +
+				d.getUTCSeconds().toString().padStart(2, '0') + '.' +
+				d.getUTCMilliseconds().toString().padStart(3, '0') + ' UTC');
+	}
+	function display_data(time, data) {
+		// Display time
+		{
+			const d = new Date(parseInt(time));
+			gebi('tg').innerText = date2str_utc(d);
+			gebi('tg').setAttribute('data-ts', d.valueOf());
+			update_time_colors();
+		}
 		// Display a data
 		for (let i = 0; i < LABELS.length; i += 1) {
 			let display_str = 'null';
@@ -274,6 +317,11 @@
 		gebi("line_lim_chk").checked = line_lim;
 		line_lim = !line_lim;
 	}
+	let screen_lock = true;
+	function screen_lock_clicked() {
+		gebi("screen_lock_chk").checked = screen_lock;
+		screen_lock = !screen_lock;
+	}
 	let local_save = true;
 	function local_save_clicked() {
 		gebi("local_save_chk").checked = local_save;
@@ -339,18 +387,20 @@
 		values.sort(cmp);
 		return values;
 	}
-	function show_storage() {
+	function collect_storage_str() {
 		const values = collect_storage();
-		answer3.value += (
-			'# Begin of local storage (' + values.length + ' lines)\n');
+		let ans = '# Begin of local storage (' + values.length + ' lines)\n';
 		for (let i = 0; i < values.length; i++) {
-			answer3.value += values[i][2];
+			ans += values[i][2];
 		}
-		answer3.value += (
-			'# End of local storage (' + values.length + ' lines)\n');
+		ans += '# End of local storage (' + values.length + ' lines)\n';
+		return ans;
+	}
+	function show_storage() {
+		answer3.value += collect_storage_str();
 	}
 	function show_storage_range() {
-		const command = answer3.value.trim();
+		const command = answer3.value.trim().toLowerCase();
 		matched = command.match(/^(\d+)-(\d+)$/)
 		if (matched != null) {
 			const begin = parseInt(matched[1]);
@@ -366,16 +416,25 @@
 			}
 			answer3.value += (
 				'# End of local storage (end at line ' + end + ')\n');
-		} else if (command == 'len') {
+		} else if (command[0] === 'l') {
 			answer3.value = 'Length: ' + collect_storage().length + '\n';
 		} else {
 			answer3.value = 'Enter command in this input box:\n';
-			answer3.value += '    len:\tshow total number of lines (current '
-			answer3.value += 'implementation is inefficient)\n';
+			answer3.value += '    l / len:\tshow total number of lines '
+			answer3.value += '(current implementation is inefficient)\n';
 			answer3.value += '    0-100:\tshow first 100 lines\n';
 			answer3.value += '    100-200:\tshow second 100 lines\n';
 			answer3.value += '    ...\n';
 		}
+	}
+	function download_storage() {
+		const href = 'data:text/plain;base64,' + btoa(collect_storage_str());
+		const file_name = Date.now().toString() + '.txt';
+		// https://stackoverflow.com/a/18197511
+		const a = document.createElement('a');
+		a.setAttribute('href', href);
+		a.setAttribute('download', file_name);
+		a.click();
 	}
 	function clear_storage() {
 		if (confirm('Are you sure to clear local storage?')) {
@@ -395,13 +454,16 @@
 	}
 	// Fetch and display location data
 	let watchLocation_id = undefined;
+	let updateTime_id = undefined;
+	let wake_lock = null;
 	let record_index = 0;
 	function showPosition(position) {
 		const coords = position.coords;
-		const time = Date.now().toString();
+		const time = position.timestamp.toString();
+		//const time = Date.now().toString();
 		const data = EXTRACT_DATA(coords);
 		const str = data2str(time, data);
-		display_data(data);
+		display_data(time, data);
 		answer.value += str;
 		// Save data to localStorage
 		store_local_data(time, data2bytes(data), record_index);
@@ -412,6 +474,33 @@
 			answer.value = arr.slice(Math.max(arr.length - 10, 0)).join("\n");
 		}
 	}
+	function update_time_colors() {
+		real_time = gebi('tr').getAttribute('data-ts');
+		gps_time = gebi('tg').getAttribute('data-ts');
+		if (real_time === null || gps_time === null) {
+			return;
+		}
+		const real_d = new Date(parseInt(real_time));
+		const gps_d = new Date(parseInt(gps_time));
+		// Unit: ms, can be negative
+		const delay = real_d - gps_d;
+		if (delay < 10000) {
+			gebi('tg').classList.remove('cyan');
+			gebi('tg').classList.remove('warn');
+		} else if (delay < 60000) {
+			gebi('tg').classList.add('cyan');
+			gebi('tg').classList.remove('warn');
+		} else {
+			gebi('tg').classList.remove('cyan');
+			gebi('tg').classList.add('warn');
+		}
+	}
+	function updateTime() {
+		const now = new Date();
+		gebi('tr').innerText = date2str_utc(now);
+		gebi('tr').setAttribute('data-ts', now.valueOf());
+		update_time_colors();
+	}
 	function exit_refrain() {
 		window.onbeforeunload = function () {
 			return "Are you sure to close the window?";
@@ -421,18 +510,58 @@
 		// https://developer.mozilla.org/zh-CN/docs/Web/API/PositionOptions
 		return { enableHighAccuracy: accurate };
 	}
+	function request_wake_lock() {
+		if (!screen_lock) {
+			return;
+		}
+		// There is a race condition, but we ignore it.
+		if (wake_lock !== null && !wake_lock.released) {
+			answer.value += '## Wake Lock already acquired\n';
+			return;
+		}
+		// https://developer.mozilla.org/en-US/docs/Web/API/Screen_Wake_Lock_API
+		try {
+			navigator.wakeLock.request("screen").then(function(wl){
+				wake_lock = wl;
+				answer.value += '## Wake Lock is acquired\n';
+				wake_lock.onrelease = function() {
+					wake_lock = null;
+					answer.value += '## Wake Lock is released\n';
+				};
+			});
+		} catch (err) {
+			answer.value += (
+				`## Wake Lock request failed: ${err.name}, ${err.message}\n`);
+		}
+	}
+	function release_wake_lock() {
+		// https://developer.mozilla.org/en-US/docs/Web/API/Screen_Wake_Lock_API
+		if (wake_lock !== null) {
+			wake_lock.release();
+		}
+	}
 	function watchLocation() {
 		exit_refrain();
 		if (watchLocation_id !== undefined) {
-			alert('即将取消上一次追踪，并重新请求追踪');
+			answer.value += '## 即将取消上一次追踪，并重新请求追踪\n';
 			navigator.geolocation.clearWatch(watchLocation_id);
 			watchLocation_id = undefined;
+		}
+		if (updateTime_id !== undefined) {
+			clearInterval(updateTime_id);
+			updateTime_id = undefined;
 		}
 		if (navigator.geolocation) {
 			watchLocation_id = (
 				navigator.geolocation.watchPosition(showPosition, showError,
 													getPositionOptions()));
 		}
+		{
+			updateTime();
+			updateTime_id = setInterval(updateTime, 1000);
+			gebi('tr').classList.remove('warn');
+		}
+		request_wake_lock();
 	}
 	function unwatchLocation() {
 		if (watchLocation_id !== undefined) {
@@ -440,6 +569,14 @@
 			watchLocation_id = undefined;
 			alert('已取消上一次追踪');
 		}
+		if (updateTime_id !== undefined) {
+			clearInterval(updateTime_id);
+			gebi('tr').classList.add('warn');
+			gebi('tg').classList.remove('cyan');
+			gebi('tg').classList.remove('warn');
+			updateTime_id = undefined;
+		}
+		release_wake_lock();
 	}
 	function showError(error) {
 		var error_type = 'UNDEFINED';
