@@ -477,7 +477,11 @@
 	function update_time_colors() {
 		real_time = gebi('tr').getAttribute('data-ts');
 		gps_time = gebi('tg').getAttribute('data-ts');
-		if (real_time === null || gps_time === null) {
+		if (real_time === null) {
+			return;
+		}
+		if (gps_time === null) {
+			gebi('tg').classList.add('warn');
 			return;
 		}
 		const real_d = new Date(parseInt(real_time));
